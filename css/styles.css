@@ -21,7 +21,6 @@ header{
   border: #0d77b6 solid 1px;
 }
 
-
 .cbp-spmenu {
 	background: #47a3da;
 	position: fixed;
@@ -67,7 +66,23 @@ header{
 	background: #afdefa;
 	color: #47a3da;
 }
-
+.cbp-spmenu img{
+position: absolute;
+height: 50px;
+width: 120px; 
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    }
+.login{
+    position: absolute;
+height: 400px;
+width: 500px; 
+    top: 30%;
+    left: 30%;
+    
+    
+}
 .menua{
     position: fixed;bottom: 0; z-index: 1001;
     color: #afdefa;

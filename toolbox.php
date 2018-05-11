@@ -1,52 +1,21 @@
 <?php
 include ('config.php');
 include ('conten.php');
+if(isset($_GET['delcn'])){
+    $id=$_GET['delcn'];
+    $query ="DELETE FROM sheet1 WHERE id=$id";			
+	 mysql_query($query);
+    }
 ?>
 
-<header >
- <div class="container">
-  <div class="row"> 
-     <div class="col-sm-2" >
-        <img src="img/logo.jpg" height="100px" width="100%" />
-     </div>
-     <div class="col-sm-7" >
-        <h3><CENTER><B>KIỂM SOÁT CÔNG NHÂN RA VÀO DỰ ÁN</B></CENTER></h3>
-     </div>
-     <div class="col-sm-3" >
-        <img src="img/hsse.jpg" />
-     </div>
-  </div>
-  </div>
-</header>
 
   <div class="container">
   <div class="row"> 
   
 <div class="col-sm-4" >
  
-    <form action="" method="POST">
-        <div class="input-group">
-            <input  class="form-control" type="text" name="doi" placeholder="Thêm đội" />
-            <input type='hidden' name='form' value='1' />
-            <div class="input-group-addon">
- <?php
-//xử lý form 1
-  if(isset($_POST["form"]) and $_POST["form"]==1){
-      $doi=$_POST["doi"]; 
-      if ($doi=='') echo "<span style='color: red;' title='Chưa điền thông tin' class='glyphicon glyphicon-remove' aria-hidden='true'></span>"; else{
-      $sql=mysql_query("SELECT * FROM doi where doi='$doi' ");
-      if(mysql_num_rows($sql)>0) echo "<span style='color: red;' title='Tên đội trùng lặp' class='glyphicon glyphicon-remove' aria-hidden='true'></span>"; else {
-         $sql1=mysql_query("INSERT INTO doi(doi) value ('$doi')");
-         if($sql1) echo "<span style='color: #80FF00;' title='Thêm thành công' class='glyphicon glyphicon-ok' aria-hidden='true'></span>"; else echo "<script language='javascript'>alert('Lổi')</script>";
-      } 
- }}
- ?>
-            </div>
-            <span class="input-group-addon"><button type="submit">Add</button></span>
-            
-        </div>
-    </form>
 
+<span class='form-control'>ĐTC/NTP TOÀN CÔNG TRƯỜNG</span>
   <div style="width: 100%; height: 550px; overflow:auto; border: 2px solid #c5cdd8;">
     <table class="table table-striped"  id="exportTable">
     <thead>
@@ -54,26 +23,26 @@ include ('conten.php');
             <th>STT</th>
             <th>DOI</th>
             <th>SL</th>
-            <th>ACTION</th>
+            
         </tr>
     </thead>
     <tbody>
   <?php 
-  $query = "select * from doi ";$sql = mysql_query($query); 
+  $query = "select * from `{$_COOKIE['project']}`";$sql = mysql_query($query); 
   $sl=0;
   while($row = mysql_fetch_assoc($sql)){ $id = $row['id'];$doi = $row['doi'];
-  $query2=mysql_query("SELECT * FROM sheet1 WHERE doi = '$doi'");
+  $query2=mysql_query("SELECT * FROM sheet1 WHERE doi = '$doi' and project='{$_COOKIE['project']}'");
    $row2 = mysql_num_rows($query2); 
  $sl=$sl+1;
    echo "<tr>
             <td>$sl </td>
             <td><input class='form-control' type='button' name='number' id='number$id' onclick='load_ajax$id()' value='$doi'/> </td>
             <td>$row2</td>
-            <td><a href='toolbox.php?del=$id'>Xóa</a></td>
+            
               <script>
-  function load_ajax$id(){
-                $.ajax({
-                    url : 'config.php',
+                    function load_ajax$id(){
+                    $.ajax({
+                    url : 'modun.php',
                     type : 'post',
                     data : {
                          number : $('#number$id').val()
@@ -83,7 +52,7 @@ include ('conten.php');
                     }
                 });
             }
-  </script>
+            </script>
         </tr>
         ";}
     ?>
@@ -99,7 +68,7 @@ include ('conten.php');
    <div class='input-group'><span class='form-control'>DANH SÁCH CÔNG NHÂN TOÀN CÔNG TRƯỜNG</span>
  <span class="input-group-addon"><button id="exportButton2" >Xuất Excel</button></span></div>
     <input class="form-control" id="myInput" type="text" placeholder="Search..">
-  <div style="width: 100%; height: 516px; overflow:auto;border: 2px solid #c5cdd8;">
+    <div style="width: 100%; height: 516px; overflow:auto;border: 2px solid #c5cdd8;">
    <table class="table table-bordered" id="exportTable2">
  <thead>
 <tr>
@@ -109,6 +78,7 @@ include ('conten.php');
 <th>ID_CAD</th>
 <th>GROUP</th>
 <th>NOTE</th>
+<th>ACTION</th>
 </tr>
  </thead>
  <tbody id="myTable">
@@ -123,6 +93,10 @@ include ('conten.php');
     <td>{$row3['cmnd']}</td>
     <td>{$row3['doi']}</td>
     <td>{$row3['note']}</td>
+    <td><a href='toolbox.php?delcn={$row3['ID']}' onclick='return confirmAction()'><span title='Xóa' class='glyphicon glyphicon-remove' aria-hidden='true'></span> </a>--
+    <script>function open_a_win{$row3['ID']}() { window.open('edit.php?idedit={$row3['ID']}','Edit',300,300); return false; }</script> 
+    <a onclick='return open_a_win{$row3['ID']}();'><span title='Edit' class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>
+    </td>
    
     </tr>";
     }

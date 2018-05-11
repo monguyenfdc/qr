@@ -1,23 +1,45 @@
 <?php
 include ('config.php');
 include ('conten.php');
+$sql = "CREATE DATABASE IF NOT EXISTS qr CHARACTER SET 'utf8' COLLATE 'utf8_unicode_ci'";
+if (mysql_query($sql)) 
+{     
+    // BUOC 2: T?O TABLE
+    mysql_select_db('qr');
+    mysql_query("CREATE TABLE IF NOT EXISTS congnhan (
+    id INT(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    ten VARCHAR(100) NOT NULL,
+    nam VARCHAR(20) NOT NULL,
+    cmnd VARCHAR(20) NOT NULL,
+    doi VARCHAR(100) NOT NULL,
+    ngay VARCHAR(50) NOT NULL,
+    project VARCHAR(50) NOT NULL
+)");
+    // Th?c thi câu truy v?n
+    
+     mysql_query("CREATE TABLE IF NOT EXISTS {$_COOKIE['project']} (
+    id INT(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    doi VARCHAR(100) NOT NULL
+)");
+    // Th?c thi câu truy v?n
+    
+     mysql_query("CREATE TABLE IF NOT EXISTS sheet1 (
+    ID INT(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    ten VARCHAR(100) NOT NULL,
+    nam VARCHAR(20) NOT NULL,
+    cmnd VARCHAR(20) NOT NULL,
+    doi VARCHAR(100) NOT NULL,
+    note VARCHAR(50) NOT NULL,
+    project VARCHAR(50) NOT NULL
+)");
+mysql_query("DELETE FROM `{$_COOKIE['project']}`");
+mysql_query("INSERT INTO `{$_COOKIE['project']}` (doi)
+SELECT DISTINCT doi
+FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
+} else {
+    echo "L?i t?o db (xem l?i tuong thích l?nh sql phiên b?n php)";
+}
 ?>
-
-<header >
- <div class="container">
-  <div class="row"> 
-     <div class="col-sm-2" >
-        <img src="img/logo.jpg" height="100px" width="100%" />
-     </div>
-     <div class="col-sm-7" >
-        <h3><CENTER><B>KIỂM SOÁT CÔNG NHÂN RA VÀO DỰ ÁN</B></CENTER></h3>
-     </div>
-     <div class="col-sm-3" >
-        <img src="img/hsse.jpg" />
-     </div>
-  </div>
-  </div>
-</header>
 
   <div class="container">
   <div class="row"> 
@@ -36,10 +58,10 @@ include ('conten.php');
     </thead>
     <tbody>
   <?php 
-  $query = "select * from doi ";$sql = mysql_query($query); 
-  $sl=0;
+  $query = "select * from `{$_COOKIE['project']}` ";$sql = mysql_query($query); 
+  $sl=0;if(mysql_num_rows($sql)>0){
   while($row = mysql_fetch_assoc($sql)){ $doi = $row['doi'];
-  $query2=mysql_query("SELECT * FROM congnhan WHERE doi = '$doi' and ngay='$today'");
+  $query2=mysql_query("SELECT * FROM congnhan WHERE doi = '$doi' and ngay='$today' and project='{$_COOKIE['project']}'");
    $row2 = mysql_num_rows($query2); 
  $sl=$sl+1;
    echo "<tr>
@@ -48,6 +70,7 @@ include ('conten.php');
             <td>$row2</td>
         </tr>
         ";}
+        }
     ?>
 	
 
@@ -71,7 +94,7 @@ include ('conten.php');
  </thead>
  <tbody id="myTable">
  <?php
- $query3=mysql_query("SELECT * FROM congnhan WHERE ngay='$today'order by doi desc");
+ $query3=mysql_query("SELECT * FROM congnhan WHERE ngay='$today'and project='{$_COOKIE['project']}'order by doi desc");
  $dem=0;
  while($row3 = mysql_fetch_assoc($query3)){$dem=$dem+1;
     

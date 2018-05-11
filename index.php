@@ -1,10 +1,31 @@
 <?php
 include ('config.php');
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Check in</title>
 
+<title>Checked</title>
+	<meta name="description" content="fdcc">
+	<meta name="author" content="mo nguyen">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+     <meta charset="UTF-8">
+	<!-- CSS HERE -->
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+
+</head>
 <body >
-<header>
+
 <center>
+<header>
+<div class="container">
+<img src="img/logo.png" height="50px" width="120px" />
+</div>
+</header>
+<div class="container">
+<br />
 <?php
 if (isset($_COOKIE['username'])){           
       if(isset($_REQUEST["cmnd"])){
@@ -18,12 +39,12 @@ if (isset($_COOKIE['username'])){
     $note=$row['note'];
     $ngay=$today;
     $query2 = "select * from congnhan where cmnd = '$cmnd'and ngay='$today'";$sql2 = mysql_query($query2); $row2 = mysql_fetch_assoc($sql2);
-    if ($row2>0) echo "Đã kiểm <br/> $ten - $doi - $note"; else{
+    if ($row2>0) echo "<b style='color: red;'>Đã kiểm </b> <br/> $ten <br/> <b>Đội:</b> $doi <br/> $nam - <b style='color: red;'>$note</b>"; else{
     $sql=mysql_query("INSERT INTO congnhan value('','".$ten."','".$nam."','".$cmnd."','".$doi."','".$ngay."')");
       if($sql) {
-        echo "$ten - $doi - $note";
+        echo "$ten <br/> <b>Đội:</b> $doi <br/> $nam - <b style='color: red;'>$note</b>";
       }
-      }}else echo 'Thu thẻ - Xử lý';
+      }}else echo "<b style='color: red;'>Gian lận - Thu thẻ - Xử lý</b>";
  }
       
     }else{
@@ -41,8 +62,8 @@ Password:
  <!-- end dn -->';
         if(isset($_POST['submit'])){
 
-            if($_POST['pass']='fdc@tocdo'){
-                setcookie("username", $_POST['pass'], time() + 3600);
+            if($_POST['pass']=='hssefdc'){
+                setcookie("username", $_POST['pass'], time() + 60*60*24*100);
                    
                 echo'<script language="javascript">{window.location.reload(); }</script>'; 
                   
@@ -54,3 +75,6 @@ Password:
    
 ?>          
 </center>
+</div>
+</body>
+</html>

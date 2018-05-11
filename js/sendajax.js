@@ -13,7 +13,7 @@ $(document).ready(function()
         //su dung ham $.ajax()
         $.ajax({
         type : 'POST', //ki?u post
-        url  : 'config.php', //g?i d? li?u sang trang submit.php
+        url  : 'modun.php', //g?i d? li?u sang trang submit.php
         data : data,
         success :  function(data)
                {                       
