@@ -27,9 +27,9 @@ include ('config.php');
 <div class="container">
 <br />
 <?php
-if (isset($_COOKIE['username'])){           
+if (isset($_COOKIE['keycheck'])){           
       if(isset($_REQUEST["cmnd"])){
-    
+    //kiểm tra số cmnd
     $cmnd=$_REQUEST["cmnd"];
     $query = "select * from sheet1 where cmnd = '$cmnd'";$sql = mysql_query($query); $row = mysql_fetch_assoc($sql); 
     if ($row>0){
@@ -38,20 +38,22 @@ if (isset($_COOKIE['username'])){
     $doi=$row['doi'];
     $note=$row['note'];
     $ngay=$today;
-    $query2 = "select * from congnhan where cmnd = '$cmnd'and ngay='$today'";$sql2 = mysql_query($query2); $row2 = mysql_fetch_assoc($sql2);
-    if ($row2>0) echo "<b style='color: red;'>Đã kiểm </b> <br/> $ten <br/> <b>Đội:</b> $doi <br/> $nam - <b style='color: red;'>$note</b>"; else{
-    $sql=mysql_query("INSERT INTO congnhan value('','".$ten."','".$nam."','".$cmnd."','".$doi."','".$ngay."')");
+    $project=$row['project'];
+    $check=$_COOKIE['keycheck'];
+    //kiểm tra đã kiểm hay chưa
+    $query2 = "select * from congnhan where cmnd = '$cmnd'and ngay='$today'and keycheck='$check'";
+    $sql2 = mysql_query($query2); $row2 = mysql_fetch_assoc($sql2);
+    if ($row2>0) echo "<b style='color: red;'>Đã kiểm </b> <br/><b> Dự án $project</b> <br/> $ten <br/> <b>Đội:</b> $doi <br/> $nam - <b style='color: red;'>$note</b>"; else{
+    if ($project != $_COOKIE['keypj']) echo "<script language='javascript'>alert('Công nhân từ dự án $project !')</script>";
+    $sql=mysql_query("INSERT INTO congnhan value('','".$ten."','".$nam."','".$cmnd."','".$doi."','".$ngay."','".$project."','".$check."')");
       if($sql) {
-        echo "$ten <br/> <b>Đội:</b> $doi <br/> $nam - <b style='color: red;'>$note</b>";
+        echo "<b>Dự án $project</b> <br/>$ten <br/> <b>Đội:</b> $doi <br/> $nam - <b style='color: red;'>$note</b>";
       }
       }}else echo "<b style='color: red;'>Gian lận - Thu thẻ - Xử lý</b>";
  }
       
     }else{
         echo '<!-- dang nhap-->
-  
-
-
 <form method="POST" action="">
 
 Password:
@@ -61,9 +63,11 @@ Password:
 </form></div>
  <!-- end dn -->';
         if(isset($_POST['submit'])){
-
-            if($_POST['pass']=='hssefdc'){
-                setcookie("username", $_POST['pass'], time() + 60*60*24*100);
+ $sql1=mysql_query('SELECT * FROM user where keycheck="'.$_POST['pass'].'"');
+            if(mysql_num_rows($sql1)>0){
+                $row1 = mysql_fetch_assoc($sql1);
+                setcookie("keycheck", $_POST['pass'], time() + 60*60*24*100);
+                setcookie("keypj", $row1['project'], time() + 60*60*24*100);
                    
                 echo'<script language="javascript">{window.location.reload(); }</script>'; 
                   

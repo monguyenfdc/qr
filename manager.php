@@ -13,7 +13,8 @@ if (mysql_query($sql))
     cmnd VARCHAR(20) NOT NULL,
     doi VARCHAR(100) NOT NULL,
     ngay VARCHAR(50) NOT NULL,
-    project VARCHAR(50) NOT NULL
+    project VARCHAR(50) NOT NULL,
+    keycheck VARCHAR(10) NOT NULL
 )");
     // Th?c thi câu truy v?n
     
@@ -61,7 +62,7 @@ FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
   $query = "select * from `{$_COOKIE['project']}` ";$sql = mysql_query($query); 
   $sl=0;if(mysql_num_rows($sql)>0){
   while($row = mysql_fetch_assoc($sql)){ $doi = $row['doi'];
-  $query2=mysql_query("SELECT * FROM congnhan WHERE doi = '$doi' and ngay='$today' and project='{$_COOKIE['project']}'");
+  $query2=mysql_query("SELECT * FROM congnhan WHERE doi = '$doi' and ngay='$today' and keycheck='{$_COOKIE['keycheck']}'");
    $row2 = mysql_num_rows($query2); 
  $sl=$sl+1;
    echo "<tr>
@@ -94,7 +95,7 @@ FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
  </thead>
  <tbody id="myTable">
  <?php
- $query3=mysql_query("SELECT * FROM congnhan WHERE ngay='$today'and project='{$_COOKIE['project']}'order by doi desc");
+ $query3=mysql_query("SELECT * FROM congnhan WHERE ngay='$today'and keycheck='{$_COOKIE['keycheck']}'order by doi desc");
  $dem=0;
  while($row3 = mysql_fetch_assoc($query3)){$dem=$dem+1;
     

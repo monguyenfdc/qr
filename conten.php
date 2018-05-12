@@ -1,5 +1,6 @@
 <?php 
 if (empty($_COOKIE['project'])) header("location:login.php");
+if (isset($_GET['out'])) {setcookie("project", "", time() - 60*60*24*100);header("location:login.php");}
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,11 @@ function confirmAction() {
   </div>
   </div>
 </header>
-<a href="#" onclick="hiddenMainLeft()" class="menua"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+<div  class="menua">
+<a href="manager.php?out=1" title="Đăng xuất"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a> <br />
+<a href="#" onclick="hiddenMainLeft()"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
+</div>
+
 <div class="cbp-spmenu"  id="hidden-main-left">
   <H3><B><?php echo $_COOKIE['project']; ?></B></H3><br /><br />
   <a><span class='glyphicon glyphicon-user' aria-hidden='true'> <?php echo $_COOKIE['ten']; ?></a><br />

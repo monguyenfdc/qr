@@ -83,7 +83,7 @@ if(isset($_GET['delcn'])){
  </thead>
  <tbody id="myTable">
  <?php
- $query3=mysql_query("SELECT * FROM sheet1 order by doi desc");
+ $query3=mysql_query("SELECT * FROM sheet1 WHERE project='{$_COOKIE['project']}' order by doi desc");
  $dem=0;
  while($row3 = mysql_fetch_assoc($query3)){$dem=$dem+1;
     

@@ -9,9 +9,15 @@ if (mysql_query($sql))
     id INT(50) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     ten VARCHAR(100) NOT NULL,
     matkhau VARCHAR(20) NOT NULL,
-    project VARCHAR(20) NOT NULL
+    project VARCHAR(20) NOT NULL,
+    keycheck VARCHAR(20) NOT NULL,
+    vip VARCHAR(10) NOT NULL
 )");
 
+$sql2 = mysql_query("SELECT * FROM user where ten='mo.nguyen'");
+if(mysql_num_rows($sql2)==0){
+     mysql_query("INSERT INTO `user`(`ten`, `matkhau`, `project`, `keycheck`, `vip`) VALUES ('mo.nguyen','khoamofc','Paihong','atph1','1')");
+}
 }
 ?>
 <!DOCTYPE html>
@@ -53,7 +59,7 @@ if (mysql_query($sql))
             $sql1=mysql_query('SELECT * FROM user where ten="'.$_POST['ten'].'" and matkhau="'.$_POST['pass'].'"');
             if(mysql_num_rows($sql1)>0){
                 $row1 = mysql_fetch_assoc($sql1);
-                setcookie("id", $row1['id'], time() + 60*60*24*100);
+                setcookie("keycheck", $row1['keycheck'], time() + 60*60*24*100);
                 setcookie("ten", $row1['ten'], time() + 60*60*24*100);
                 setcookie("project", $row1['project'], time() + 60*60*24*100);
                 echo "chuẩn";
