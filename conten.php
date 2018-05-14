@@ -58,14 +58,15 @@ function confirmAction() {
 </div>
 
 <div class="cbp-spmenu"  id="hidden-main-left">
-  <H3><B><?php echo $_COOKIE['project']; ?></B></H3><br /><br />
+  <H3><B><?php echo strtoupper($_COOKIE['project']); ?></B></H3><br /><br />
   <a><span class='glyphicon glyphicon-user' aria-hidden='true'> <?php echo $_COOKIE['ten']; ?></a><br />
   <div>
   <H4>QUẢN LÝ</H4>
   <a href="manager.php"  title="Quản lý" >QUÂN SỐ HẰNG NGÀY </a>
   <a href="toolbox.php"  title="Quản lý" >ĐTC/NTP</a>
   <H4>CÔNG CỤ</H4>
-  <a href="import.php"  title="Thêm đội" >NHẬP LIỆU</a>
+  <a href="import.php"  title="Nhập liệu" >NHẬP LIỆU</a>
+  <a href="layout.php"  title="Xuất thẻ công nhân" >XUẤT THẺ</a>
    
 </div>
 </div>

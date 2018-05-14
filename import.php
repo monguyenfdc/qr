@@ -1,6 +1,7 @@
 <?php
 include ('config.php');
 include ('conten.php');
+
 ob_start();
 ?>
 
@@ -77,7 +78,7 @@ ob_start();
  <td><input class="form-control" type="text" required="required" name="nam" placeholder="Năm sinh"/></td>
  <td><input class="form-control" type="text" required="required" name="cmnd" placeholder="Số CMND"/></td>
  <td> <?php  $sqld = mysql_query("select * from `{$_COOKIE['project']}`");?>         
-  <select class="form-control" name="doi" >
+  <select class="form-control" name="doi" title="Vào mục ĐTC/NTP rồi trở lại nếu danh sách đội ko hiển thị">
             <?php if (empty($_COOKIE['sldoi'])) echo "<option value='' >--Chọn đội--</option>";else echo"<option value='{$_COOKIE['sldoi']}' >--{$_COOKIE['sldoi']}--</option>";?>
             <?php while($rowd = mysql_fetch_assoc($sqld)){ echo "<option value='{$rowd['doi']}' > {$rowd['doi']} </option>";}?>
             </select></td>

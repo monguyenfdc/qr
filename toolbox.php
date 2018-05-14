@@ -6,6 +6,10 @@ if(isset($_GET['delcn'])){
     $query ="DELETE FROM sheet1 WHERE id=$id";			
 	 mysql_query($query);
     }
+mysql_query("DELETE FROM `{$_COOKIE['project']}`");
+mysql_query("INSERT INTO `{$_COOKIE['project']}` (doi)
+SELECT DISTINCT doi
+FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
 ?>
 
 
