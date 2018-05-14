@@ -92,6 +92,7 @@ FROM `congnhan` WHERE `keycheck` ='{$_COOKIE['keycheck']}'");
 <th>YEAR</th>
 <th>ID_CAD</th>
 <th>GROUP</th>
+<th>PROJECT</th>
 </tr>
  </thead>
  <tbody id="myTable">
@@ -105,7 +106,7 @@ FROM `congnhan` WHERE `keycheck` ='{$_COOKIE['keycheck']}'");
     <td>{$row3['nam']}</td>
     <td>{$row3['cmnd']}</td>
     <td>{$row3['doi']}</td>
-   
+   <td>{$row3['project']}</td>
     </tr>";
     }
    echo '</tbody></table>'; 

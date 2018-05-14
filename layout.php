@@ -51,7 +51,7 @@ FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
  </thead>
 <?php 
 if(isset($_POST["in2"])){
-$sql1= mysql_query("SELECT * FROM sheet1 where cmnd='{$_POST["ms"]}'");
+$sql1= mysql_query("SELECT * FROM sheet1 where ID='{$_POST["ms"]}'");
 if(mysql_num_rows($sql1)>0){
     $row1 = mysql_fetch_assoc($sql1);
         echo "
@@ -69,7 +69,7 @@ if(mysql_num_rows($sql1)>0){
         </td>
         </td>
         </tr>";
-}   
+} else echo "<script language='javascript'>alert('Không tìm thấy thông tin !')</script>";  
 }
 
 ?>
