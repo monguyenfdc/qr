@@ -41,7 +41,7 @@ if(isset($_REQUEST["idedit"])){
  <td><input class="form-control" type="text" required="required" name="ten" value="<?php echo "$ten";?>" /></td>
  <td><input class="form-control" type="text" required="required" name="nam" value="<?php echo "$nam";?>"/></td>
  <td><input class="form-control" type="text" required="required" name="cmnd" value="<?php echo "$cmnd";?>"/></td>
- <td> <?php  $sqld = mysql_query("SELECT DISTINCT doi FROM sheet1`");?>         
+ <td> <?php  $sqld = mysql_query("SELECT DISTINCT doi FROM `sheet1`");?>         
   <select class="form-control" name="doi" >
            <option value='<?php echo "$doi";?>' >--<?php echo "$doi";?>--</option>
             <?php while($rowd = mysql_fetch_assoc($sqld)){ echo "<option value='{$rowd['doi']}' > {$rowd['doi']} </option>";}?>

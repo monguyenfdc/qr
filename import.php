@@ -77,7 +77,7 @@ ob_start();
  <td><input class="form-control" type="text" required="required" name="ten" placeholder="Tên"/></td>
  <td><input class="form-control" type="text" required="required" name="nam" placeholder="Năm sinh"/></td>
  <td><input class="form-control" type="text" required="required" name="cmnd" placeholder="Số CMND"/></td>
- <td> <?php  $sqld = mysql_query("SELECT DISTINCT doi FROM sheet1`");?>         
+ <td> <?php  $sqld = mysql_query("SELECT DISTINCT doi FROM `sheet1`");?>         
   <select class="form-control" name="doi" title="Vào mục ĐTC/NTP rồi trở lại nếu danh sách đội ko hiển thị">
             <?php if (empty($_COOKIE['sldoi'])) echo "<option value='' >--Chọn đội--</option>";else echo"<option value='{$_COOKIE['sldoi']}' >--{$_COOKIE['sldoi']}--</option>";?>
             <?php while($rowd = mysql_fetch_assoc($sqld)){ echo "<option value='{$rowd['doi']}' > {$rowd['doi']} </option>";}?>
@@ -100,7 +100,7 @@ if(mysql_num_rows($sql1)>0){
         <td>{$row1['doi']}</td>
         <td>{$row1['note']}</td>
         <td>{$row1['project']}
-        <script>function open_a_win{$row1['ID']}() { window.open('edit.php?idedit={$row1['ID']}','Edit',300,300); return false; }</script> 
+        <script>function open_a_win{$row1['ID']}() { window.open('edit.php?idedit={$row1['ID']}','Edit','width=960,height=300'); return false; }</script> 
         <a onclick='return open_a_win{$row1['ID']}();'><span title='Edit' class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>
         </td>
         </td>
