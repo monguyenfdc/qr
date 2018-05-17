@@ -157,7 +157,7 @@ $row3 = mysql_fetch_assoc($query3) ;
 <td class='s6' colspan='2'>Ngày cấp:</td>
 <td class='s9' dir='ltr'>$today</td>
 <td class='s10' rowspan='3'><div style='width:107px;height:102px'>
-<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=http://fdc.giskill.com/index.php?cmnd={$row3['cmnd']}' height='102px' width='102px'/>
+<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=http://work.fdcc.com.vn:8081/index.php?cmnd={$row3['cmnd']}' height='102px' width='102px'/>
 </div></td>
 </tr>
 <tr style='height:35px;'>
