@@ -6,13 +6,14 @@ if (isset($_GET['out'])) {setcookie("project", "", time() - 60*60*24*100);header
 <html>
 <head>
 	
-	<title>Check in</title>
 
-<title>Checked</title>
+
+<title>HSSE - FDC</title>
 	<meta name="description" content="fdcc">
 	<meta name="author" content="mo nguyen">
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <meta charset="UTF-8">
+     <link rel="shortcut icon" href="/favicon.ico">
 	<!-- CSS HERE -->
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
     <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
