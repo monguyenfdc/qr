@@ -25,7 +25,7 @@ include ('config.php');
 </div>
 </header>
 <div class="container">
-<br />
+
 <?php
 if (isset($_COOKIE['keycheck'])){           
       if(isset($_REQUEST["cmnd"])){
@@ -43,13 +43,12 @@ if (isset($_COOKIE['keycheck'])){
     //kiểm tra đã kiểm hay chưa
     $query2 = "select * from congnhan where cmnd = '$cmnd'and ngay='$today'and keycheck='$check'";
     $sql2 = mysql_query($query2); $row2 = mysql_fetch_assoc($sql2);
-    if ($row2>0) echo "
-    <h2><b style='color: red;'>Đã kiểm </b> </h2><h2><b> Dự án $project</b> </h2><h2> $ten </h2> <h3>$nam <h3> <h2><b>Đội:</b> $doi </h2> <h3><b style='color: red;'>$note</b></h3>"; 
+    if ($row2>0) echo "<h2><b style='color: red;'>Đã kiểm </b> </h2><h2><b> Dự án $project</b> </h2><h2> $ten </h2> <h3>$nam <h3> <h2><b>Đội:</b> $doi </h2> <h3><b style='color: red;'>$note</b></h3>"; 
     else{
     if ($project != $_COOKIE['keypj']) echo "<script language='javascript'>alert('Công nhân từ dự án $project !')</script>";
     $sql=mysql_query("INSERT INTO congnhan value('','".$ten."','".$nam."','".$cmnd."','".$doi."','".$ngay."','".$project."','".$check."')");
       if($sql) {
-        echo "<h2><b> Dự án $project</b> </h2><h2> $ten </h2> <h3>$nam <h3> <h2><b>Đội:</b> $doi </h2> <h3><b style='color: red;'>$note</b></h3>";
+        echo "</h2><h2><b> Dự án $project</b> </h2><h2> $ten </h2> <h3>$nam <h3> <h2><b>Đội:</b> $doi </h2> <h3><b style='color: red;'>$note</b></h3>";
       }
       }}else echo "<b style='color: red;'>Gian lận - Thu thẻ - Xử lý</b>";
  }
@@ -79,7 +78,10 @@ Password:
         }
    }
    
-?>          
+?>   
+<hr/>
+NO PROBLEM - ONLY SOLUTION
+<hr/>
 </center>
 </div>
 </body>
