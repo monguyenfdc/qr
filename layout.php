@@ -64,7 +64,7 @@ if(mysql_num_rows($sql1)>0){
         <td>{$row1['doi']}</td>
         <td>{$row1['note']}</td>
         <td>{$row1['project']}
-        <script>function open_a_win{$row1['ID']}() { window.open('print.php?idpr={$row1['ID']}','Print',300,300); return false; }</script> 
+        <script>function open_a_win{$row1['ID']}() { window.open('print.php?idpr={$row1['ID']}','Print','width=960,height=300'); return false; }</script> 
         <a onclick='return open_a_win{$row1['ID']}();'><span title='Print' class='glyphicon glyphicon-print' aria-hidden='true'></span></a>
         </td>
         </td>
