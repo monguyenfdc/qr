@@ -1,7 +1,7 @@
 <?php
 include ('config.php');
 include ('conten.php');
-
+include 'simplexlsx.class.php';
 ob_start();
 ?>
 
@@ -47,10 +47,16 @@ ob_start();
                 <div class="col-md-6" id="form-login">
                     <form class="well" action="" method="post" name="upload_excel" enctype="multipart/form-data">
                         <fieldset>
-                            <legend>Cập nhật từ file CSV/TEXT</legend>
+                        
+              <div class="input-group">
+                  <span class="form-control">Thêm bằng Excel</span>  
+                  <span class="input-group-addon"><a href="form.xlsx"><span class="glyphicon glyphicon-save" aria-hidden="true"></span> Tải Form</a></span>
+                  
+              </div>
+                <br />
                                         <div class="input-group">
                                         <input  class="form-control" type="file"  name="file" id="file" />
-                                        <div class="input-group-addon"><button type="submit" id="submit" name="Import">Upload</button></div>
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-open" aria-hidden="true"></span><button type="submit" id="submit" name="Import">Upload</button></div>
                                         </div>
                         </fieldset>
                     </form>
@@ -114,7 +120,14 @@ if($_FILES["file"]["size"] > 0)
 
 {
  $filename= $_FILES['file']['tmp_name'];
-$file = fopen($filename, "r");
+ $xlsx = new SimpleXLSX( $filename);
+    $fp = fopen( 'file.csv', 'w');
+    foreach( $xlsx->rows() as $fields ) {
+        fputcsv( $fp, $fields);
+    }
+    fclose($fp);
+ 
+$file = fopen('file.csv', "r");
 $t=0;
 while (($emapData = fgetcsv($file, 10000, ",")) !== FALSE)
 {
@@ -156,10 +169,11 @@ else echo "loi";}}
 $t=$t+1;
 }
 fclose($file);
-
-  
+if (file_exists('file.csv'))
+{
+    unlink('file.csv');
 }
-}
+}}
 //Thêm cn từ form thủ công
 if(isset($_POST["addcn"])){ 
  if  ($_POST["doi"]=='') echo "<script language='javascript'>alert('Bạn chưa chọn đội !')</script>";
