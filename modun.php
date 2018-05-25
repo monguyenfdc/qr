@@ -33,7 +33,7 @@ if(isset($_POST['number'])){
     <td>{$row3['cmnd']}</td>
     <td>{$row3['note']}</td>
    <td><a href='toolbox.php?delcn={$row3['ID']}' onclick='return confirmAction()'><span title='Xóa' class='glyphicon glyphicon-remove' aria-hidden='true'></span> </a>--
-    <script>function open_a_win{$row3['ID']}() { window.open('edit.php?idedit={$row3['ID']}','Edit',200,900); return false; }</script> 
+    <script>function open_a_win{$row3['ID']}() { window.open('edit.php?idedit={$row3['ID']}','Edit','width=960,height=300'); return false; }</script> 
     <a onclick='return open_a_win{$row3['ID']}();'><span title='Edit' class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>
     </td>
     </tr>";

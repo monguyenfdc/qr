@@ -49,7 +49,7 @@ FROM `congnhan` WHERE `keycheck` ='{$_COOKIE['keycheck']}'");
      <div class="col-sm-4" >
   <div class='input-group'><span class='form-control'>QUÂN SỐ NGÀY: <?php echo $today; ?></span>
   <span class="input-group-addon"><button id="exportButton">Xuất Excel</button></span></div> 
-  <div style="width: 100%; height: 550px; overflow:auto; border: 2px solid #c5cdd8;">
+  <div style="width: 100%; height: 516px; overflow:auto; border: 2px solid #c5cdd8;">
     <table class="table table-striped"  id="exportTable">
     <thead>
         <tr>
@@ -78,11 +78,18 @@ FROM `congnhan` WHERE `keycheck` ='{$_COOKIE['keycheck']}'");
 
     </tbody>
     </table>
-</div></div>
+</div>
+<div style="width: 100%; height: 34px; background: #39F702; border: 1px solid #c5cdd8;">
+<b>TỔNG QUÂN SỐ:
+<?php $query4=mysql_query("SELECT * FROM congnhan WHERE ngay='$today' and keycheck='{$_COOKIE['keycheck']}'");
+echo mysql_num_rows($query4);
+?></b>
+</div>
+</div>
  <div class="col-sm-8" >
  <div class='input-group'><span class='form-control'>THÔNG TIN CÔNG NHÂN LÀM VIỆC TRONG NGÀY</span>
  <span class="input-group-addon"><button id="exportButton2" >Xuất Excel</button></span></div>
- <input class="form-control" id="myInput" type="text" placeholder="Search..">
+
  <div style="width: 100%; height: 516px; overflow:auto;border: 2px solid #c5cdd8;">
   <table class="table table-bordered" id="exportTable2">
  <thead>
@@ -112,6 +119,10 @@ FROM `congnhan` WHERE `keycheck` ='{$_COOKIE['keycheck']}'");
    echo '</tbody></table>'; 
  ?>
  </div>
+ 
+<input style="background: #39F702; border: 1px solid #c5cdd8;"class="form-control" id="myInput" type="text" placeholder="Search..">
+ 
+ 
  </div>
  
  

@@ -25,6 +25,7 @@ if(isset($_REQUEST["idedit"])){
 
 </head>
 <body>
+ <img src="img/hsse.jpg" height="60px" width="150px" /><br />
 <table class='table table-bordered' id='exportTable2'>
  <thead>
 <tr>
@@ -41,7 +42,7 @@ if(isset($_REQUEST["idedit"])){
  <td><input class="form-control" type="text" required="required" name="ten" value="<?php echo "$ten";?>" /></td>
  <td><input class="form-control" type="text" required="required" name="nam" value="<?php echo "$nam";?>"/></td>
  <td><input class="form-control" type="text" required="required" name="cmnd" value="<?php echo "$cmnd";?>"/></td>
- <td> <?php  $sqld = mysql_query("SELECT DISTINCT doi FROM `sheet1`");?>         
+ <td> <?php  $sqld = mysql_query("SELECT `doi` FROM `{$_COOKIE['project']}`");?>         
   <select class="form-control" name="doi" >
            <option value='<?php echo "$doi";?>' >--<?php echo "$doi";?>--</option>
             <?php while($rowd = mysql_fetch_assoc($sqld)){ echo "<option value='{$rowd['doi']}' > {$rowd['doi']} </option>";}?>
@@ -70,7 +71,21 @@ if(isset($_REQUEST["idedit"])){
         <td>{$row1['note']}</td>
         <td>{$row1['project']}</td>
         </tr>";
- } 
+ } else{//Ko trùng thì thêm vào csdl
+    $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}' WHERE ID='$idc'");
+if($sql1) { 
+echo "
+<tr>
+    <td>{$_POST["ten"]}</td>
+    <td>{$_POST["nam"]}</td>
+    <td>{$_POST["cmnd"]}</td>
+    <td>{$_POST["doi"]}</td>
+    <td>{$_POST["note"]}</td>
+    <td>Ok</td>
+   
+    </tr>";
+    echo "<script>setTimeout(function(){open(location, '_self').close();}, 3000); </script>";}
+ }
  }else{//Ko trùng thì thêm vào csdl
     $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}' WHERE ID='$idc'");
 if($sql1) { 
@@ -86,7 +101,7 @@ echo "
     </tr>";
     echo "<script>setTimeout(function(){open(location, '_self').close();}, 3000); </script>";
 }
-else echo "<tr><td>Xãy ra lỗi</td></tr>";}
- }
+}
+}
  ?>
 </body>

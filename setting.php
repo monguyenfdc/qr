@@ -72,7 +72,7 @@ if(isset($_REQUEST["admin"])){
     $sql1=mysql_query("SELECT * FROM user where matkhau='$pass'");
             if(mysql_num_rows($sql1)>0){
                 if ($pass1==$pass2){
-                    $sql1=mysql_query("UPDATE user SET matkhau='$pass1'");
+                    $sql1=mysql_query("UPDATE user SET matkhau='$pass1'WHERE ten='$ad'");
                     if($sql1) echo "<script language='javascript'>alert('Cập nhật thành công!')</script>"; 
                    
                 }else echo "<script language='javascript'>alert('Xác nhận mật khẩu không đúng !')</script>";

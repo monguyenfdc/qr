@@ -51,6 +51,7 @@ function confirmAction() {
   </div>
   </div>
 </header>
+<img src="footer.jpg" width="100%" style="position: fixed; bottom: 0px;" />
 <div  class="menua">
 <div class="dropdown">
    <a id="dLabel" data-target="#" href="http://example.com" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Thiết lập"> 
@@ -58,7 +59,7 @@ function confirmAction() {
 
   <ul class="dropdown-menu" aria-labelledby="dLabel">
   <center>
-    <a onclick='return setting()' > <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Thiết lập</a> <br />
+    <a href="#" onclick='return setting()' > <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Thiết lập</a> <br />
     <a href="manager.php?out=1" > <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Đăng xuất</a>
   </center>
   </ul>
@@ -69,7 +70,7 @@ function confirmAction() {
 
 <div class="cbp-spmenu"  id="hidden-main-left">
   <H3><B><?php echo strtoupper($_COOKIE['project']); ?></B></H3><br /><br />
-  <a><span class='glyphicon glyphicon-user' aria-hidden='true'> <?php echo $_COOKIE['ten']; ?></a><br />
+  <a href="<?php if (isset($_COOKIE['vip'])and $_COOKIE['vip']==1) echo 'vip.php'; else echo '#'; ?>"><span class='glyphicon glyphicon-user' aria-hidden='true'> <?php echo $_COOKIE['ten']; ?></a><br />
   <div>
   <H4>QUẢN LÝ</H4>
   <a href="manager.php"  title="Quản lý" >QUÂN SỐ HẰNG NGÀY </a>

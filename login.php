@@ -62,6 +62,7 @@ if(mysql_num_rows($sql2)==0){
                 setcookie("keycheck", $row1['keycheck'], time() + 60*60*24*100);
                 setcookie("ten", $row1['ten'], time() + 60*60*24*100);
                 setcookie("project", $row1['project'], time() + 60*60*24*100);
+                setcookie("vip", $row1['vip'], time() + 60*60*24*100);
                 echo "chuẩn";
                    header("location:manager.php");
                    }else echo "<script language='javascript'>alert('Tên hoặc mật khẩu không đúng !')</script>";
