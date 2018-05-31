@@ -3,7 +3,7 @@ include ('config.php');
 include ('conten.php');
 if (empty($_COOKIE['vip'])) header("location:manager.php");
 ?>
-<script type="text/javascript" src="chart.js"></script>
+<script type="text/javascript" src="js/chart.js"></script>
  <div class="container">
   <div class="row"> 
  
