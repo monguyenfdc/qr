@@ -49,7 +49,7 @@ echo mysql_num_rows($query4);
 </div>
 <div class="col-md-8">
 <span  class="input-group-addon">Giám sát công trình</span> 
-  <div style='width: 100%; height: 200px; overflow:auto;border: 1px solid #c5cdd8;'>
+  <div style='width: 100%; height: 228px; overflow:auto;border: 1px solid #c5cdd8;'>
   <?php 
   if(isset($_REQUEST["idgs"])){
     $idgs=$_REQUEST["idgs"];
@@ -125,7 +125,7 @@ if(isset($_POST["add"])){
 if($sql1) { echo "<script language='javascript'>alert('Thêm thành công thành công !')</script>";
 }}
 ?>
-<canvas id="chartjs-0" class="chartjs" width="100%" height="30px" style="display: block; width: 100%; height: 30px;"></canvas>
+<canvas id="chartjs-0" class="chartjs" width="100%" height="30px" style="display: block; width: 100%; height: 30px; border: 2px solid #c5cdd8;"></canvas>
 <script>
 new Chart(document.getElementById("chartjs-0"),{
     "type":"line",
@@ -135,7 +135,7 @@ new Chart(document.getElementById("chartjs-0"),{
          <?php 
  $t1=date('d-m-Y', strtotime('-6 day')); $t2=date('d-m-Y', strtotime('-5 day')); $t3=date('d-m-Y', strtotime('-4 day')); $t4=date('d-m-Y', strtotime('-3 day')); $t5=date('d-m-Y', strtotime('-2 day')); $t6=date('d-m-Y', strtotime('-1 day')); $t7=date('d-m-Y');
   $sql4 = mysql_query("SELECT DISTINCT `keycheck`,`project` FROM `congnhan`");
-  $sl=45;if(mysql_num_rows($sql4)>0){
+  $sl=45;$sl2=190;if(mysql_num_rows($sql4)>0){
   while($row4 = mysql_fetch_assoc($sql4)){ $key4 = $row4['keycheck'];$prj4 = $row4['project'];
   $query2=mysql_query("SELECT * FROM congnhan WHERE keycheck = '$key4' and ngay='$t1'");
   $query3=mysql_query("SELECT * FROM congnhan WHERE keycheck = '$key4' and ngay='$t2'");
@@ -151,14 +151,14 @@ new Chart(document.getElementById("chartjs-0"),{
    $row6 = mysql_num_rows($query6); 
    $row7 = mysql_num_rows($query7); 
    $row8 = mysql_num_rows($query8); 
- $sl=$sl+30;
+ $sl=$sl+30;$sl2=$sl2-20;
    echo "
         {
             'label':'$prj4',
             'data':[$row2,$row3,$row4,$row5,$row6,$row7,$row8,],
             'fill':false,
-            'borderColor':'rgb(75, $sl, $sl)',
-            'lineTension':0.1}
+            'borderColor':'rgb($sl, $sl2, $sl2 )',
+            'lineTension':0.1},
         
         ";}
         }
