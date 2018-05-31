@@ -1,5 +1,12 @@
 <?php
 include ('config.php');
+if(isset($_REQUEST["chuyen"])){
+     $sql1=mysql_query("UPDATE sheet1 SET project = '{$_COOKIE['project']}' WHERE ID='{$_REQUEST["chuyen"]}'");
+if($sql1) { 
+
+    echo "<script language='javascript'>alert('Chuyển về thành công !')</script>";
+    echo "<script>setTimeout(function(){open(location, '_self').close();}, 3000); </script>";}
+}
 
 if(isset($_REQUEST["idedit"])){
     $idc =$_REQUEST["idedit"];
@@ -48,6 +55,7 @@ if(isset($_REQUEST["idedit"])){
             <?php while($rowd = mysql_fetch_assoc($sqld)){ echo "<option value='{$rowd['doi']}' > {$rowd['doi']} </option>";}?>
             </select></td>
  <td><input class="form-control" type="text" name="note" value="<?php echo "$note";?>"/></td>
+ 
  <td><input class="form-control" type="submit"  value="Lưu" name="save"/></td>
  
  </form>
@@ -69,10 +77,10 @@ if(isset($_REQUEST["idedit"])){
         <td>{$row1['cmnd']}</td>
         <td>{$row1['doi']}</td>
         <td>{$row1['note']}</td>
-        <td>{$row1['project']}</td>
+        <td>{$row1['project']} <a href=edit.php?chuyen=$idc>Chuển CT</a></td>
         </tr>";
  } else{//Ko trùng thì thêm vào csdl
-    $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}' WHERE ID='$idc'");
+    $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}', project = '{$_COOKIE['project']}' WHERE ID='$idc'");
 if($sql1) { 
 echo "
 <tr>
@@ -87,7 +95,7 @@ echo "
     echo "<script>setTimeout(function(){open(location, '_self').close();}, 3000); </script>";}
  }
  }else{//Ko trùng thì thêm vào csdl
-    $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}' WHERE ID='$idc'");
+    $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}', project = '{$_COOKIE['project']}' WHERE ID='$idc'");
 if($sql1) { 
 echo "
 <tr>
@@ -103,5 +111,6 @@ echo "
 }
 }
 }
+
  ?>
 </body>

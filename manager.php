@@ -33,11 +33,11 @@ if (mysql_query($sql))
     note VARCHAR(50) NOT NULL,
     project VARCHAR(50) NOT NULL
 )");
-mysql_query("DELETE FROM `congnhan` WHERE `ngay`!= '$today'");
+
 mysql_query("DELETE FROM `{$_COOKIE['project']}`");
 mysql_query("INSERT INTO `{$_COOKIE['project']}` (doi)
 SELECT DISTINCT doi
-FROM `congnhan` WHERE `keycheck` ='{$_COOKIE['keycheck']}'");
+FROM `congnhan` WHERE `keycheck` ='{$_COOKIE['keycheck']}'and `ngay`='$today'");
 } else {
     echo "L?i t?o db (xem l?i tuong thích l?nh sql phiên b?n php)";
 }
