@@ -54,8 +54,6 @@ height: 400px;
 width: 500px; 
     top: 30%;
     left: 30%;
-    
-    
 }
 .cbp-spmenu {
     	background: #47a3da;
@@ -111,6 +109,28 @@ width: 500px;
   -o-transition: 0.3s;
   transition: 0.3s;
 }
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.zom {-webkit-transition:all 1s ease;-moz-transition:all 1s ease;-o-transition:all 1s ease;-ms-transition:all 1s ease;transition:all 1s ease;max-width:100%}
+.zom:hover{-webkit-transform:scale(2.25);-moz-transform:scale(2.25);-ms-transform:scale(2.25);-o-transform:scale(2.25);transform:scale(2.25)}
+.zom {max-width:100%;overflow:auto}
 #fh5co-page {
  
   width: 100%;
