@@ -87,7 +87,7 @@ echo mysql_num_rows($query4);
 </div>
 </div>
  <div class="col-sm-8" >
- <div class='input-group'><span class='form-control'>THÔNG TIN CÔNG NHÂN LÀM VIỆC TRONG NGÀY</span>
+ <div class='input-group'><span class='form-control'>CÔNG NHÂN LÀM VIỆC TRONG NGÀY</span>
  <span class="input-group-addon"><button id="exportButton2" >Xuất Excel</button></span></div>
 
  <div style="width: 100%; height: 516px; overflow:auto;border: 2px solid #c5cdd8;">
@@ -122,7 +122,7 @@ echo mysql_num_rows($query4);
  
 <input style="background: #39F702; border: 1px solid #c5cdd8;"class="form-control" id="myInput" type="text" placeholder="Search..">
  
- 
+ <br />
  </div>
  
  
@@ -130,7 +130,7 @@ echo mysql_num_rows($query4);
   </div>
 
 
-<br />
+
   
  </body>
  </html>

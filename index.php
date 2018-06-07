@@ -45,13 +45,55 @@ if (isset($_COOKIE['keycheck'])){
     //kiểm tra đã kiểm hay chưa
     $query2 = "select * from congnhan where cmnd = '$cmnd'and ngay='$today'and keycheck='$check'";
     $sql2 = mysql_query($query2); $row2 = mysql_fetch_assoc($sql2);
-    if ($row2>0) echo "<h2><b style='color: red;'>Đã kiểm </b> </h2><h2><b> Dự án $project</b> </h2><h2> $ten </h2> <h3>$nam <h3> <h2><b>Đội:</b> $doi </h2> <h3><b style='color: red;'>$note</b></h3>"; 
+    if ($row2>0) {echo "
+    <h4><b style='color: red;'>Đã kiểm </b> </h4>
+    <b> $project</b> - <b>Đội: $doi</b>
+    <h4 > $ten - $nam </h4>
+     <b style='color: red;'>$note</b><br/>"; 
+ $jpg="avt/".$cmnd.".jpg"; $png="avt/".$cmnd.".png";
+$ccnjpg="cc/ccn/".$cmnd.".jpg"; $ccnpng="cc/ccn/".$cmnd.".png";
+$n3jpg="cc/n3/".$cmnd.".jpg"; $n3png="cc/n3/".$cmnd.".png";
+
+ if (file_exists($jpg)or file_exists($png)){
+ if (file_exists($jpg))  echo "<img class='img-thumbnail' src='$jpg'/><br/>";  
+ if (file_exists($png))  echo "<img class='img-thumbnail' src='$png'/><br/>"; 
+ }
+ else echo "<img class='img-thumbnail' src='#' alt= 'Thiếu ảnh'/><br/>";
+if (file_exists($ccnjpg)or file_exists($ccnpng)){
+ if (file_exists($ccnjpg))  echo "<a href='$ccnjpg' class='btn btn-success'>CC NGHỀ >></a>";  
+ if (file_exists($ccnpng))  echo "<a href='$ccnpng' class='btn btn-success'>CC NGHỀ >></a>";  
+}
+if (file_exists($n3jpg)or file_exists($n3png)){
+ if (file_exists($n3jpg))  echo "<a href='$n3jpg'class='btn btn-success'>THẺ N3 >></a>";
+ if (file_exists($n3png))  echo "<a href='$n3png'class='btn btn-success'>THẺ N3 >></a>";
+}
+}    
     else{
     if ($project != $_COOKIE['keypj']) echo "<script language='javascript'>alert('Công nhân từ dự án $project !')</script>";
     $sql=mysql_query("
     INSERT INTO `congnhan`(`ten`, `nam`, `cmnd`, `doi`, `ngay`, `project`, `keycheck`) VALUES ('$ten','$nam','$cmnd','$doi','$ngay','$project','$check')");
       if($sql) {
-        echo "</h2><h2><b> Dự án $project</b> </h2><h2> $ten </h2> <h3>$nam <h3> <h2><b>Đội:</b> $doi </h2> <h3><b style='color: red;'>$note</b></h3>";
+        echo "
+        <b> $project</b> - <b>Đội: $doi</b>
+    <h3 > $ten - $nam </h3>
+     <b style='color: red;'>$note</b><br/>"; 
+ $jpg="avt/".$cmnd.".jpg"; $png="avt/".$cmnd.".png";
+$ccnjpg="cc/ccn/".$cmnd.".jpg"; $ccnpng="cc/ccn/".$cmnd.".png";
+$n3jpg="cc/n3/".$cmnd.".jpg"; $n3png="cc/n3/".$cmnd.".png";
+
+ if (file_exists($jpg)or file_exists($png)){
+ if (file_exists($jpg))  echo "<img class='img-thumbnail' src='$jpg'/><br/>";  
+ if (file_exists($png))  echo "<img class='img-thumbnail' src='$png'/><br/>"; 
+ }
+ else echo "<img class='img-thumbnail' src='#' alt= 'Thiếu ảnh'/><br/>";
+if (file_exists($ccnjpg)or file_exists($ccnpng)){
+ if (file_exists($ccnjpg))  echo "<a href='$ccnjpg'class='btn btn-success'>CC NGHỀ >></a>";  
+ if (file_exists($ccnpng))  echo "<a href='$ccnpng'class='btn btn-success'>CC NGHỀ >></a>";  
+}
+if (file_exists($n3jpg)or file_exists($n3png)){
+ if (file_exists($n3jpg))  echo "<a href='$n3jpg'class='btn btn-success'>THẺ N3 >></a>";
+ if (file_exists($n3png))  echo "<a href='$n3png'class='btn btn-success'>THẺ N3 >></a>";
+}
       }else echo "lổi";
       }}else echo "<b style='color: red;'>Gian lận - Thu thẻ - Xử lý</b>";
  } 

@@ -1,7 +1,6 @@
 <?php
 include ('config.php');
 include ('conten.php');
-
 ob_start();
 ?>
 
@@ -62,7 +61,7 @@ ob_start();
    <table class='table table-bordered' id='exportTable2'>
  <thead>
 <tr>
-<th>STT</th>
+<th>AVT</th>
 <th>NAME</th>
 <th>YEAR</th>
 <th>ID_CAD</th>
@@ -72,9 +71,10 @@ ob_start();
 </tr>
  </thead>
  <tr>
- <form action="" method="post">
- <td ><a class="form-control">Auto</a></td>
- <td><input class="form-control" type="text" required="required" name="ten" placeholder="Tên"/></td>
+ <form action="" method="post" enctype="multipart/form-data">
+ 
+ <td ><label  for="imgInp" class="btn btn-primary btn-file">  <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> </label></td>
+ <td><input type="file" name="file" id="imgInp" style="display: none;"/><input class="form-control" type="text" required="required" name="ten" placeholder="Tên"/></td>
  <td><input class="form-control" type="text" required="required" name="nam" placeholder="Năm sinh"/></td>
  <td><input class="form-control" type="text" required="required" name="cmnd" placeholder="Số CMND"/></td>
  <td> <?php  $sqld = mysql_query("SELECT `doi` FROM `{$_COOKIE['project']}`");?>         
@@ -83,15 +83,17 @@ ob_start();
             <?php while($rowd = mysql_fetch_assoc($sqld)){ echo "<option value='{$rowd['doi']}' > {$rowd['doi']} </option>";}?>
             </select></td>
  <td><input class="form-control" type="text" name="note" placeholder="Ghi chú"/></td>
- <td><input class="form-control" type="submit"  value="Thêm CN" name="addcn"/></td>
+ <td><input class="btn btn-primary btn-file" type="submit"  value="Thêm CN" name="addcn"/></td>
  
  </form>
  </tr>
+
+ 
   <?php
 if(isset($_POST["seach"])){
 $sql1= mysql_query("SELECT * FROM sheet1 where cmnd='{$_POST["key"]}'");
-if(mysql_num_rows($sql1)>0){
-    $row1 = mysql_fetch_assoc($sql1);
+if(mysql_num_rows($sql1)>0){ 
+    $row1 = mysql_fetch_assoc($sql1);$cmnd=$row1['cmnd'];
         echo "<tr>
         <td>{$row1['ID']}</td>
         <td>{$row1['ten']}</td>
@@ -100,12 +102,30 @@ if(mysql_num_rows($sql1)>0){
         <td>{$row1['doi']}</td>
         <td>{$row1['note']}</td>
         <td>{$row1['project']}
-        <script>function open_a_win{$row1['ID']}() { window.open('edit.php?idedit={$row1['ID']}','Edit','width=960,height=300'); return false; }</script> 
+        <script>function open_a_win{$row1['ID']}() { window.open('edit.php?idedit={$row1['ID']}','Edit','width=1020,height=450'); return false; }</script> 
         <a onclick='return open_a_win{$row1['ID']}();'><span title='Edit' class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>
         </td>
-        </td>
+        
         </tr>";
-}   
+ $jpg="avt/".$cmnd.".jpg"; $png="avt/".$cmnd.".png";
+$ccnjpg="cc/ccn/".$cmnd.".jpg"; $ccnpng="cc/ccn/".$cmnd.".png";
+$n3jpg="cc/n3/".$cmnd.".jpg"; $n3png="cc/n3/".$cmnd.".png";
+echo '<tr>';
+ if (file_exists($jpg)or file_exists($png)){
+ if (file_exists($jpg))  echo "<img  src='$jpg' height='132px'/><br/>";  
+ if (file_exists($png))  echo "<img  src='$png' height='132px'/><br/>"; 
+ }
+ else echo "<img class='img-thumbnail' src='#' alt= 'Thiếu ảnh'/><br/>";
+if (file_exists($ccnjpg)or file_exists($ccnpng)){
+ if (file_exists($ccnjpg))  echo "<a href='$ccnjpg' class='btn btn-success'>CC NGHỀ >></a>";  
+ if (file_exists($ccnpng))  echo "<a href='$ccnpng' class='btn btn-success'>CC NGHỀ >></a>";  
+}
+if (file_exists($n3jpg)or file_exists($n3png)){
+ if (file_exists($n3jpg))  echo "<a href='$n3jpg'class='btn btn-success'>THẺ N3 >></a>";
+ if (file_exists($n3png))  echo "<a href='$n3png'class='btn btn-success'>THẺ N3 >></a>";
+}
+echo '</tr>';
+}   else echo "<script>alert('CSDL trống !')</script>";
 }
 
 //thêm cn bằng file
@@ -133,7 +153,7 @@ if ($t>0 and isset($emapData[3])){
         <td>{$row1['doi']}</td>
         <td>{$row1['note']}</td>
         <td>{$row1['project']}
-        <script>function open_a_win{$row1['ID']}() { window.open('edit.php?idedit={$row1['ID']}','Edit','width=960,height=300'); return false; }</script> 
+        <script>function open_a_win{$row1['ID']}() { window.open('edit.php?idedit={$row1['ID']}','Edit','width=1020,height=450'); return false; }</script> 
         <a onclick='return open_a_win{$row1['ID']}();'><span title='Edit' class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>
         </td>
         </tr>";
@@ -178,15 +198,36 @@ if(isset($_POST["addcn"])){
         <td>{$row1['doi']}</td>
         <td>{$row1['note']}</td>
         <td>{$row1['project']}
-        <script>function open_a_win{$row1['ID']}() { window.open('edit.php?idedit={$row1['ID']}','Edit','width=960,height=300'); return false; }</script> 
+        <script>function open_a_win{$row1['ID']}() { window.open('edit.php?idedit={$row1['ID']}','Edit','width=1020,height=450'); return false; }</script> 
         <a onclick='return open_a_win{$row1['ID']}();'><span title='Edit' class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>
         </td>
         </tr>";
  } else{//Ko trùng thì thêm vào csdl
+ //thêm ảnh
+    if (isset($_FILES['file']['name']) and $_FILES['file']['name'] != NULL) {
+        if($_FILES['file']['type'] == "image/jpeg"
+			|| $_FILES['file']['type'] == "image/png")
+			{
+			 $tmp_name = $_FILES['file']['tmp_name'];
+             $duoi=strtolower(end(explode('.',$_FILES['file']['name'])));
+            $target_file= "avt/".$_FILES['file']['name'];
+             move_uploaded_file($tmp_name,$target_file);
+              list($width,$height) = getimagesize($target_file);
+                 if($_FILES['file']['type'] == "image/jpeg")$newimage = imagecreatefromjpeg($target_file);else $newimage = imagecreatefrompng($target_file);
+	               $newwith=$width*0.25;
+                    $newhight=$height*0.25;	
+                    $thumb=	"avt/".$_POST["cmnd"].".".$duoi;
+                    $colo=imagecreatetruecolor($newwith,$newhight);
+                    imagecopyresampled($colo,$newimage,0,0,0,0,$newwith,$newhight,$width,$height);
+                    if($_FILES['file']['type'] == "image/jpeg")imagejpeg($colo,$thumb,100);else imagepng($colo,$thumb,8);
+                    unlink ($target_file);
+			}
+    }else $thumb='#';
+    //thêm vào csdl
     $sql1=mysql_query("INSERT INTO `sheet1`(`ten`, `nam`, `cmnd`, `doi`, `note`,`project`) VALUES ('{$_POST["ten"]}','{$_POST["nam"]}','{$_POST["cmnd"]}','{$_POST["doi"]}','{$_POST["note"]}','{$_COOKIE['project']}')");
 if($sql1) { 
 echo "
-<tr><td>1</td>
+<tr><td><img src='$thumb' alt='' height='132px'/></td>
     <td>{$_POST["ten"]}</td>
     <td>{$_POST["nam"]}</td>
     <td>{$_POST["cmnd"]}</td>
@@ -205,6 +246,25 @@ else echo "<tr><td>Xãy ra lỗi</td></tr>";}
 ?> 
 
 </table>
+ <img id="blah" src="#" alt="" height="132px"  />
+    <script type="text/javascript">
+        function readURL(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#blah').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#imgInp").change(function() {
+  readURL(this);
+});
+    </script>
 </div>
   <br />
   

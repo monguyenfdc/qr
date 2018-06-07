@@ -23,6 +23,10 @@ $project=strtoupper($_COOKIE['project']);
 if(isset($_POST["in1"])){ $doi= $_POST['doi'];
 $query3=mysql_query("SELECT * FROM `sheet1` WHERE `doi`= '$doi' and `project`='{$_COOKIE['project']}'");
  while($row3 = mysql_fetch_assoc($query3)){ 
+ $jpg="avt/".$row3['cmnd'].".jpg"; $png="avt/".$row3['cmnd'].".png";
+ if (file_exists($jpg)or file_exists($png)){
+ if (file_exists($jpg))  $img=$jpg;  
+ if (file_exists($png))  $img=$png; }
     echo "
 <div class='ritz grid-container' dir='ltr'  id='Content_ID'>
 <table class='waffle' cellspacing='0' cellpadding='0'>
@@ -65,7 +69,7 @@ $query3=mysql_query("SELECT * FROM `sheet1` WHERE `doi`= '$doi' and `project`='{
 
 
 <td class='s1'></td>
-<td class='s8' dir='ltr' rowspan='4'>(ẢNH THẺ)</td>
+<td class='s8' dir='ltr' rowspan='4'><img src='$img' height='130px' width='100px'/></td>
 <td class='s6' dir='ltr' colspan='2'>ĐTC/NTP</td>
 <td class='s4' dir='ltr' colspan='2'>{$row3['doi']}</td>
 </tr>
@@ -104,6 +108,10 @@ $query3=mysql_query("SELECT * FROM `sheet1` WHERE `doi`= '$doi' and `project`='{
 if(isset($_GET["idpr"])){ 
 $query3=mysql_query("SELECT * FROM `sheet1` WHERE `ID`= '{$_GET["idpr"]}'");
 $row3 = mysql_fetch_assoc($query3) ;
+ $jpg="avt/".$row3['cmnd'].".jpg"; $png="avt/".$row3['cmnd'].".png";
+ if (file_exists($jpg)or file_exists($png)){
+ if (file_exists($jpg))  $img=$jpg;  
+ if (file_exists($png))  $img=$png; }
     echo "
 <div class='ritz grid-container' dir='ltr'  id='Content_ID'>
 <table class='waffle' cellspacing='0' cellpadding='0'>
@@ -146,7 +154,7 @@ $row3 = mysql_fetch_assoc($query3) ;
 
 
 <td class='s1'></td>
-<td class='s8' dir='ltr' rowspan='4'>(ẢNH THẺ)</td>
+<td class='s8' dir='ltr' rowspan='4'><img src='$img' height='130px' width='100px'/></td>
 <td class='s6' dir='ltr' colspan='2'>ĐTC/NTP</td>
 <td class='s4' dir='ltr' colspan='2'>{$row3['doi']}</td>
 </tr>

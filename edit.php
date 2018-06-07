@@ -29,6 +29,9 @@ if(isset($_REQUEST["idedit"])){
      <meta charset="UTF-8">
 	<!-- CSS HERE -->
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
+     <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+     
 
 </head>
 <body>
@@ -36,16 +39,18 @@ if(isset($_REQUEST["idedit"])){
 <table class='table table-bordered' id='exportTable2'>
  <thead>
 <tr>
+<th>PIC</th>
 <th>NAME</th>
 <th>YEAR</th>
 <th>ID_CAD</th>
 <th>GROUP</th>
 <th>NOTE</th>
-<th>Lưu</th>
+<th>SAVE</th>
 </tr>
  </thead>
  <tr>
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
+<td><label  for="imgInp" class="btn btn-primary btn-file">  <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> </label><input type="file" name="file" id="imgInp" style="display: none;"/></td>
  <td><input class="form-control" type="text" required="required" name="ten" value="<?php echo "$ten";?>" /></td>
  <td><input class="form-control" type="text" required="required" name="nam" value="<?php echo "$nam";?>"/></td>
  <td><input class="form-control" type="text" required="required" name="cmnd" value="<?php echo "$cmnd";?>"/></td>
@@ -56,10 +61,66 @@ if(isset($_REQUEST["idedit"])){
             </select></td>
  <td><input class="form-control" type="text" name="note" value="<?php echo "$note";?>"/></td>
  
- <td><input class="form-control" type="submit"  value="Lưu" name="save"/></td>
+ <td><input type="submit"  value="Lưu" name="save" id="save" style="display: none;"/><label  for="save" class="btn btn-primary">  <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> </label></td>
  
- </form>
+ 
  </tr>
+ <tr>
+ <td><img id="blah" src="#" alt="" height="132px"  /></td>
+  <td><label  for="ccn" class="btn btn-info btn-file" >  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> CC Nghề </label><input type="file" name="ccn" id="ccn" style="display: none;"/></td>
+   <td><label  for="n3" class="btn btn-info btn-file" >  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Thẻ N3</label><input type="file" name="n3" id="n3" style="display: none;"/></td>
+    <script type="text/javascript">
+        function readURL(input) {
+
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      $('#blah').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#imgInp").change(function() {
+  readURL(this);
+});
+    </script>
+    </form>
+ </tr>
+ <tr>
+ <?php
+$jpg="avt/".$cmnd.".jpg"; $png="avt/".$cmnd.".png";
+$ccnjpg="cc/ccn/".$cmnd.".jpg"; $ccnpng="cc/ccn/".$cmnd.".png";
+$n3jpg="cc/n3/".$cmnd.".jpg"; $n3png="cc/n3/".$cmnd.".png";
+
+ if (file_exists($jpg)or file_exists($png)){
+    echo "<td>";
+ if (file_exists($jpg))  echo "<img src='$jpg'height='132px'";  
+ if (file_exists($png))  echo "<img src='$png'height='132px'"; 
+ echo "</td>";}
+ else echo "<td>empty ;(</td>
+<div class='alert alert-warning alert-dismissible' role='alert'>
+  <strong>Thiếu ảnh thẻ!</strong> Vui lòng bổ sung.
+<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+</div>
+
+";
+if (file_exists($ccnjpg)or file_exists($ccnpng)){
+    echo "<td>";
+ if (file_exists($ccnjpg))  echo "<img class='zom' src='$ccnjpg'height='132px'";  
+ if (file_exists($ccnpng))  echo "<img class='zom' src='$ccnpng'height='132px'"; 
+ echo "</td>"; 
+}else echo "<td>empty ;(</td>";
+if (file_exists($n3jpg)or file_exists($n3png)){
+    echo "<td>";
+ if (file_exists($n3jpg))  echo "<img class='zom' src='$n3jpg'height='132px'";  
+ if (file_exists($n3png))  echo "<img class='zom' src='$n3png'height='132px'"; 
+ echo "</td>"; 
+}else echo "<td>empty ;(</td>";
+  ?>
+  </tr>
  <?php
  if(isset($_POST["save"])){
      $cmnd2= $_POST['cmnd'];
@@ -80,37 +141,124 @@ if(isset($_REQUEST["idedit"])){
         <td>{$row1['project']} <a href=edit.php?chuyen=$idc>Chuển CT</a></td>
         </tr>";
  } else{//Ko trùng thì thêm vào csdl
+     if (isset($_FILES['file']['name']) and $_FILES['file']['name'] != NULL) {
+        if($_FILES['file']['type'] == "image/jpeg"
+			|| $_FILES['file']['type'] == "image/png")
+			{
+			 $tmp_name = $_FILES['file']['tmp_name'];
+             $duoi=strtolower(end(explode('.',$_FILES['file']['name'])));
+            $target_file= "avt/".$_FILES['file']['name'];
+             move_uploaded_file($tmp_name,$target_file);
+              list($width,$height) = getimagesize($target_file);
+                 if($_FILES['file']['type'] == "image/jpeg")$newimage = imagecreatefromjpeg($target_file);else $newimage = imagecreatefrompng($target_file);
+	               $newwith=$width*0.25;
+                    $newhight=$height*0.25;	
+                    $thumb=	"avt/".$_POST["cmnd"].".".$duoi;
+                    $colo=imagecreatetruecolor($newwith,$newhight);
+                    imagecopyresampled($colo,$newimage,0,0,0,0,$newwith,$newhight,$width,$height);
+                    if($_FILES['file']['type'] == "image/jpeg")imagejpeg($colo,$thumb,100);else imagepng($colo,$thumb,8);
+                    unlink ($target_file);
+			}
+    }else $thumb='#';
+    if (isset($_FILES['ccn']['name']) and $_FILES['ccn']['name'] != NULL) {
+        if($_FILES['ccn']['type'] == "image/jpeg"
+			|| $_FILES['ccn']['type'] == "image/png")
+			{
+			 $ccn = $_FILES['ccn']['tmp_name'];
+             $duoi=strtolower(end(explode('.',$_FILES['ccn']['name'])));
+            $local1= "cc/ccn/".$_POST["cmnd"].".".$duoi;
+             move_uploaded_file($ccn,$local1);
+              
+			}
+    }else $local1='#';
+    if (isset($_FILES['n3']['name']) and $_FILES['n3']['name'] != NULL) {
+        if($_FILES['n3']['type'] == "image/jpeg"
+			|| $_FILES['n3']['type'] == "image/png")
+			{
+			 $n3 = $_FILES['n3']['tmp_name'];
+             $duoi=strtolower(end(explode('.',$_FILES['n3']['name'])));
+            $local2= "cc/n3/".$_POST["cmnd"].".".$duoi;
+             move_uploaded_file($n3,$local2);
+              
+			}
+    }else $local2='#';
     $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}', project = '{$_COOKIE['project']}' WHERE ID='$idc'");
 if($sql1) { 
 echo "
 <tr>
-    <td>{$_POST["ten"]}</td>
-    <td>{$_POST["nam"]}</td>
+    <td><img src='$thumb' alt='' height='132px'/></td>
+    <td>{$_POST["ten"]}<br/><img src='$local1' alt='' height='120px'/></td>
+    <td>{$_POST["nam"]}<br/><img src='$local2' alt='' height='120px'/></td>
     <td>{$_POST["cmnd"]}</td>
     <td>{$_POST["doi"]}</td>
     <td>{$_POST["note"]}</td>
     <td>Ok</td>
    
     </tr>";
-    echo "<script>setTimeout(function(){open(location, '_self').close();}, 3000); </script>";}
+    echo "<script>setTimeout(function(){open(location, '_self').close();}, 7000); </script>";}
  }
  }else{//Ko trùng thì thêm vào csdl
+     if (isset($_FILES['file']['name']) and $_FILES['file']['name'] != NULL) {
+        if($_FILES['file']['type'] == "image/jpeg"
+			|| $_FILES['file']['type'] == "image/png")
+			{
+			 $tmp_name = $_FILES['file']['tmp_name'];
+             $duoi=strtolower(end(explode('.',$_FILES['file']['name'])));
+            $target_file= "avt/".$_FILES['file']['name'];
+             move_uploaded_file($tmp_name,$target_file);
+              list($width,$height) = getimagesize($target_file);
+                 if($_FILES['file']['type'] == "image/jpeg")$newimage = imagecreatefromjpeg($target_file);else $newimage = imagecreatefrompng($target_file);
+	               $newwith=$width*0.25;
+                    $newhight=$height*0.25;	
+                    $thumb=	"avt/".$_POST["cmnd"].".".$duoi;
+                    $colo=imagecreatetruecolor($newwith,$newhight);
+                    imagecopyresampled($colo,$newimage,0,0,0,0,$newwith,$newhight,$width,$height);
+                    if($_FILES['file']['type'] == "image/jpeg")imagejpeg($colo,$thumb,100);else imagepng($colo,$thumb,8);
+                    unlink ($target_file);
+			}
+    }else $thumb='#';
+    if (isset($_FILES['ccn']['name']) and $_FILES['ccn']['name'] != NULL) {
+        if($_FILES['ccn']['type'] == "image/jpeg"
+			|| $_FILES['ccn']['type'] == "image/png")
+			{
+			 $ccn = $_FILES['ccn']['tmp_name'];
+             $duoi=strtolower(end(explode('.',$_FILES['ccn']['name'])));
+            $local1= "cc/ccn/".$_POST["cmnd"].".".$duoi;
+             move_uploaded_file($ccn,$local1);
+              
+			}
+    }else $local1='#';
+    if (isset($_FILES['n3']['name']) and $_FILES['n3']['name'] != NULL) {
+        if($_FILES['n3']['type'] == "image/jpeg"
+			|| $_FILES['n3']['type'] == "image/png")
+			{
+			 $n3 = $_FILES['n3']['tmp_name'];
+             $duoi=strtolower(end(explode('.',$_FILES['n3']['name'])));
+            $local2= "cc/n3/".$_POST["cmnd"].".".$duoi;
+             move_uploaded_file($n3,$local2);
+              
+			}
+    }else $local2='#';
     $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}', project = '{$_COOKIE['project']}' WHERE ID='$idc'");
 if($sql1) { 
 echo "
 <tr>
-    <td>{$_POST["ten"]}</td>
-    <td>{$_POST["nam"]}</td>
+    <td><img src='$thumb' alt='' height='132px'/></td>
+    <td>{$_POST["ten"]}<br/><img src='$local1' alt='' height='120px'/></td>
+    <td>{$_POST["nam"]}<br/><img src='$local2' alt='' height='120px'/></td>
     <td>{$_POST["cmnd"]}</td>
     <td>{$_POST["doi"]}</td>
     <td>{$_POST["note"]}</td>
     <td>Ok</td>
    
     </tr>";
-    echo "<script>setTimeout(function(){open(location, '_self').close();}, 3000); </script>";
+    echo "<script>setTimeout(function(){open(location, '_self').close();}, 7000); </script>";
 }
 }
 }
 
  ?>
+ 
+ 
+    </table>
 </body>
