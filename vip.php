@@ -3,7 +3,7 @@ include ('config.php');
 include ('conten.php');
 if (empty($_COOKIE['vip'])) header("location:manager.php");
 ?>
-<script type="text/javascript" src="js/chart.js"></script>
+<script type="text/javascript" src="js/Chart.js"></script>
  <div class="container">
   <div class="row"> 
  
@@ -21,7 +21,7 @@ if (empty($_COOKIE['vip'])) header("location:manager.php");
     </thead>
     <tbody>
       <?php 
-  $sql = mysql_query("SELECT DISTINCT `keycheck`,`project` FROM `congnhan`");
+  $sql = mysql_query("SELECT DISTINCT `keycheck`,`project`,`ngay` FROM `congnhan` WHERE ngay = '$today'");
   $sl=0;if(mysql_num_rows($sql)>0){
   while($row = mysql_fetch_assoc($sql)){ $key = $row['keycheck'];$prj = $row['project'];
   $query2=mysql_query("SELECT * FROM congnhan WHERE keycheck = '$key' and ngay='$today'");
@@ -134,7 +134,7 @@ new Chart(document.getElementById("chartjs-0"),{
         "datasets":[
          <?php 
  $t1=date('d-m-Y', strtotime('-6 day')); $t2=date('d-m-Y', strtotime('-5 day')); $t3=date('d-m-Y', strtotime('-4 day')); $t4=date('d-m-Y', strtotime('-3 day')); $t5=date('d-m-Y', strtotime('-2 day')); $t6=date('d-m-Y', strtotime('-1 day')); $t7=date('d-m-Y');
-  $sql4 = mysql_query("SELECT DISTINCT `keycheck`,`project` FROM `congnhan`");
+  $sql4 = mysql_query("SELECT DISTINCT `keycheck`,`project`,`ngay` FROM `congnhan` WHERE ngay = '$today'");
   $sl=45;$sl2=190;if(mysql_num_rows($sql4)>0){
   while($row4 = mysql_fetch_assoc($sql4)){ $key4 = $row4['keycheck'];$prj4 = $row4['project'];
   $query2=mysql_query("SELECT * FROM congnhan WHERE keycheck = '$key4' and ngay='$t1'");

@@ -13,7 +13,7 @@ FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
 ?>
 
 
-  <div class="container">
+
   <div class="row"> 
   
 <div class="col-sm-4" >
@@ -112,11 +112,7 @@ FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
  </div>
  </div>
 
-   <footer>
-  <center>
-  Copyright by FDC<br />
-  Design and development by <a href="https://www.facebook.com/monguyen.giskill" target="_blank">mo.nguyen@fdcc.com.vn</a></center> 
-  </footer>
+  <br />
   
  </body>
  </html>

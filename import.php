@@ -5,7 +5,7 @@ include ('conten.php');
 ob_start();
 ?>
 
- <div class="container">
+
  <div class="row">
            
     <br/>
@@ -206,11 +206,7 @@ else echo "<tr><td>Xãy ra lỗi</td></tr>";}
 
 </table>
 </div>
-  <footer>
-  <center>
-  Copyright by FDC<br />
-  Design and development by <a href="https://www.facebook.com/monguyen.giskill" target="_blank">mo.nguyen@fdcc.com.vn</a></center> 
-  </footer>
+  <br />
   
  </body>
  </html>

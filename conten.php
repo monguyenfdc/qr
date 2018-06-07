@@ -19,13 +19,9 @@ if (isset($_GET['out'])) {setcookie("project", "", time() - 60*60*24*100);header
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/sendajax.js"></script>
      <script type="text/javascript" src="js/excel.js"></script>
-<script>
-function hiddenMainLeft() {
-    var hidden = document.getElementById('hidden-main-left');
-    if (hidden.style.display === 'none') hidden.style.display = 'block';
-	else hidden.style.display = 'none';
-}
-</script>
+     <script src="js/jquery.waypoints.min.js"></script>
+     <script src="js/main.js"></script>          
+
 <script>
 function confirmAction() {
       return confirm("Bạn chắc chắn muốn xóa")
@@ -33,29 +29,26 @@ function confirmAction() {
 </script>
 <script>function setting() { window.open('setting.php?admin=<?php echo $_COOKIE['ten'];?>','Edit','width=960,height=350'); return false; }</script> 
 </head>
+
 <body>
 
-
-<header >
- <div class="container">
-  <div class="row"> 
-     <div class="col-sm-2" >
-        <img src="img/logo.jpg" height="100px" width="100%" />
-     </div>
-     <div class="col-sm-7" >
-        <h3><CENTER><B>KIỂM SOÁT CÔNG NHÂN RA VÀO DỰ ÁN</B></CENTER></h3>
-     </div>
-     <div class="col-sm-3" >
-        <img src="img/hsse.jpg" />
-     </div>
-  </div>
-  </div>
-</header>
-<img src="footer.jpg" width="100%" style="position: fixed; bottom: 0px;" />
-<div  class="menua">
+	<div id="fh5co-page">
+		<a type="button" href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+		<aside id="fh5co-aside" role="complementary" class="border js-fullheight cbp-spmenu">
+			<H3><B><?php echo strtoupper($_COOKIE['project']); ?></B></H3>
+  <a href="<?php if (isset($_COOKIE['vip'])and $_COOKIE['vip']==1) echo 'vip.php'; else echo '#'; ?>"><span class='glyphicon glyphicon-user' aria-hidden='true'> <?php echo $_COOKIE['ten']; ?></a><br />
+  			<nav id="fh5co-main-menu" role="navigation">
+				<ul >
+					 <li> <H4>QUẢN LÝ</H4></li>
+ <li> <a href="manager.php"  title="Quản lý" >QUÂN SỐ HẰNG NGÀY </a></li>
+  <li><a href="toolbox.php"  title="Quản lý" >ĐTC/NTP</a></li>
+  <li><H4>CÔNG CỤ</H4></li>
+  <li><a href="import.php"  title="Nhập liệu" >NHẬP LIỆU</a></li>
+  <li><a href="layout.php"  title="Xuất thẻ công nhân" >XUẤT THẺ</a></li>
+   <li><div  class="menua">
 <div class="dropdown">
    <a id="dLabel" data-target="#" href="http://example.com" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" title="Thiết lập"> 
-    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> </a>
+    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> CÀI ĐẶT </a>
 
   <ul class="dropdown-menu" aria-labelledby="dLabel">
   <center>
@@ -64,20 +57,42 @@ function confirmAction() {
   </center>
   </ul>
 </div>
- <br />
-<a href="#" onclick="hiddenMainLeft()"><span class="glyphicon glyphicon-list" aria-hidden="true"></span></a>
-</div>
 
-<div class="cbp-spmenu"  id="hidden-main-left">
-  <H3><B><?php echo strtoupper($_COOKIE['project']); ?></B></H3><br /><br />
-  <a href="<?php if (isset($_COOKIE['vip'])and $_COOKIE['vip']==1) echo 'vip.php'; else echo '#'; ?>"><span class='glyphicon glyphicon-user' aria-hidden='true'> <?php echo $_COOKIE['ten']; ?></a><br />
-  <div>
-  <H4>QUẢN LÝ</H4>
-  <a href="manager.php"  title="Quản lý" >QUÂN SỐ HẰNG NGÀY </a>
-  <a href="toolbox.php"  title="Quản lý" >ĐTC/NTP</a>
-  <H4>CÔNG CỤ</H4>
-  <a href="import.php"  title="Nhập liệu" >NHẬP LIỆU</a>
-  <a href="layout.php"  title="Xuất thẻ công nhân" >XUẤT THẺ</a>
-   
-</div>
-</div>
+</div></li>
+				</ul>
+			</nav>
+
+		</aside>
+
+		<div id="fh5co-main">
+		<header>
+        <div class="pc">
+                <div class="row"> <CENTER>
+     <div class="col-sm-2" >
+        <img src="img/logo.png" height="40px" width="90px" />
+     </div>
+     <div class="col-sm-7" >
+        <h3><B>KIỂM SOÁT CÔNG NHÂN RA VÀO DỰ ÁN</B></h3>
+     </div>
+     <div class="col-sm-3" >
+        <img src="img/hsse.png" height="40px" width="90px" />
+     </div></CENTER>
+  </div>
+  </div>
+  <div class="mobile">
+                 <CENTER>
+     <h3>
+        <img src="img/logo.png" height="30px" width="60px"/>
+     
+        <B>QR PROJECT</B>
+    
+        <img src="img/hsse.png" height="30px" width="60px" />
+     </h3></CENTER>
+  </div>
+  
+ </header>
+ <footer >
+ FDC   <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span> MO.NGUYEN
+ </footer>
+  
+  

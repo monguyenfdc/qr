@@ -37,11 +37,7 @@ if(mysql_num_rows($sql2)==0){
 </head>
 
 
-<div class="cbp-spmenu"  id="hidden-main-left">
-<center>
-<img src="img/logo.png" />
-</center>
-</div>
+
 <div class="container">
  <div class="row">
 
@@ -51,7 +47,7 @@ if(mysql_num_rows($sql2)==0){
 <form method="post">
 <input class="form-control" type="text" name="ten" required="required" placeholder="Tên đăng nhập"/><br />
 <input class="form-control" type="password" name="pass" required="required" placeholder="Mật Khẩu"/><br />
-<input class="btn btn-success btn-flat btn-lg pull-right button-loading" type="submit" name="login" value="login" />
+<input class="btn btn-primary btn-lg btn-block" type="submit" name="login" value="login" />
 </form>
 
 <?php
