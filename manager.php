@@ -34,13 +34,12 @@ if (mysql_query($sql))
     project VARCHAR(50) NOT NULL
 )");
 
+
+}
 mysql_query("DELETE FROM `{$_COOKIE['project']}`");
 mysql_query("INSERT INTO `{$_COOKIE['project']}` (doi)
 SELECT DISTINCT doi
 FROM `congnhan` WHERE `keycheck` ='{$_COOKIE['keycheck']}'and `ngay`='$today'");
-} else {
-    echo "L?i t?o db (xem l?i tuong thích l?nh sql phiên b?n php)";
-}
 ?>
 
   
@@ -87,7 +86,7 @@ echo mysql_num_rows($query4);
 </div>
 </div>
  <div class="col-sm-8" >
- <div class='input-group'><span class='form-control'>CÔNG NHÂN LÀM VIỆC TRONG NGÀY</span>
+ <div class='input-group'><span class='form-control'>CÔNG NHÂN TRONG NGÀY</span>
  <span class="input-group-addon"><button id="exportButton2" >Xuất Excel</button></span></div>
 
  <div style="width: 100%; height: 516px; overflow:auto;border: 2px solid #c5cdd8;">

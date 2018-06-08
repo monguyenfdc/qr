@@ -1,10 +1,9 @@
 <?php
 include ('config.php');
 include ('conten.php');
-if (empty($_COOKIE['vip'])) header("location:manager.php");
 ?>
 <script type="text/javascript" src="js/Chart.js"></script>
- <div class="container">
+
   <div class="row"> 
  
      <div class="col-sm-4" >
@@ -20,16 +19,18 @@ if (empty($_COOKIE['vip'])) header("location:manager.php");
         </tr>
     </thead>
     <tbody>
-      <?php 
-  $sql = mysql_query("SELECT DISTINCT `keycheck`,`project`,`ngay` FROM `congnhan` WHERE ngay = '$today'");
+       <?php 
+  $sql = mysql_query("SELECT DISTINCT `keycheck` FROM `congnhan`");
   $sl=0;if(mysql_num_rows($sql)>0){
-  while($row = mysql_fetch_assoc($sql)){ $key = $row['keycheck'];$prj = $row['project'];
+  while($row = mysql_fetch_assoc($sql)){ $key = $row['keycheck'];
   $query2=mysql_query("SELECT * FROM congnhan WHERE keycheck = '$key' and ngay='$today'");
    $row2 = mysql_num_rows($query2); 
+   $query3=mysql_query("SELECT DISTINCT `keycheck`, `project` FROM user WHERE keycheck = '$key'");
+    $row3 = mysql_fetch_assoc($query3);
  $sl=$sl+1;
    echo "<tr>
             <td>$sl </td>
-            <td>$prj</td>
+            <td>{$row3['project']}</td>
             <td>$row2</td>
         </tr>
         ";}
@@ -125,7 +126,7 @@ if(isset($_POST["add"])){
 if($sql1) { echo "<script language='javascript'>alert('Thêm thành công thành công !')</script>";
 }}
 ?>
-<canvas id="chartjs-0" class="chartjs" width="100%" height="30px" style="display: block; width: 100%; height: 30px; border: 2px solid #c5cdd8;"></canvas>
+<canvas id="chartjs-0" class="chartjs" width="100%" height="27px" style="display: block; width: 100%; height: 27px; border: 2px solid #c5cdd8;"></canvas>
 <script>
 new Chart(document.getElementById("chartjs-0"),{
     "type":"line",
@@ -134,9 +135,11 @@ new Chart(document.getElementById("chartjs-0"),{
         "datasets":[
          <?php 
  $t1=date('d-m-Y', strtotime('-6 day')); $t2=date('d-m-Y', strtotime('-5 day')); $t3=date('d-m-Y', strtotime('-4 day')); $t4=date('d-m-Y', strtotime('-3 day')); $t5=date('d-m-Y', strtotime('-2 day')); $t6=date('d-m-Y', strtotime('-1 day')); $t7=date('d-m-Y');
-  $sql4 = mysql_query("SELECT DISTINCT `keycheck`,`project`,`ngay` FROM `congnhan` WHERE ngay = '$today'");
+  $sql4 = mysql_query("SELECT DISTINCT `keycheck` FROM `congnhan`");
   $sl=45;$sl2=190;if(mysql_num_rows($sql4)>0){
-  while($row4 = mysql_fetch_assoc($sql4)){ $key4 = $row4['keycheck'];$prj4 = $row4['project'];
+  while($row4 = mysql_fetch_assoc($sql4)){ $key4 = $row4['keycheck'];
+  $query6=mysql_query("SELECT DISTINCT `keycheck`, `project` FROM user WHERE keycheck = '$key4'");
+    $row6 = mysql_fetch_assoc($query6);$prj4 = $row6['project'];
   $query2=mysql_query("SELECT * FROM congnhan WHERE keycheck = '$key4' and ngay='$t1'");
   $query3=mysql_query("SELECT * FROM congnhan WHERE keycheck = '$key4' and ngay='$t2'");
   $query4=mysql_query("SELECT * FROM congnhan WHERE keycheck = '$key4' and ngay='$t3'");
