@@ -29,7 +29,8 @@ if(isset($_POST['ok'])){ // Người dùng đã ấn submit
            // Tiến hành code upload file
      if ($foder=='0') {$target_file = "{$_FILES["file"]["name"]}"; } else {$target_file = "$foder/".$_FILES["file"]["name"];}
      
-    move_uploaded_file($tmp_name,$target_file);             
+    move_uploaded_file($tmp_name,$target_file); 
+    if (file_exists($target_file))   echo "<script>alert('save thành công!')</script>"; else  echo "<script>alert('save thất bại!')</script>";          
 }   }          
 ?>
 

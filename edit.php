@@ -67,8 +67,13 @@ if(isset($_REQUEST["idedit"])){
  </tr>
  <tr>
  <td><img id="blah" src="#" alt="" height="132px"  /></td>
-  <td><label  for="ccn" class="btn btn-info btn-file" >  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> CC Nghề </label><input type="file" name="ccn" id="ccn" style="display: none;"/></td>
-   <td><label  for="n3" class="btn btn-info btn-file" >  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Thẻ N3</label><input type="file" name="n3" id="n3" style="display: none;"/></td>
+  <td>
+  <input  type="file" name="ccn" id="ccn" class="inputfile" style="display: none;"/>
+  <label  for="ccn" class="btn btn-info btn-file" >  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"> CC Nghề&hellip;</span></label>
+  </td>
+   <td><input type="file" name="n3" id="n3" class="inputfile" style="display: none;"/>
+   <label  for="n3" class="btn btn-info btn-file" >  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true">Thẻ N3&hellip;</span> </label></td>
+
     <script type="text/javascript">
         function readURL(input) {
 
@@ -158,6 +163,8 @@ if (file_exists($n3jpg)or file_exists($n3png)){
                     imagecopyresampled($colo,$newimage,0,0,0,0,$newwith,$newhight,$width,$height);
                     if($_FILES['file']['type'] == "image/jpeg")imagejpeg($colo,$thumb,100);else imagepng($colo,$thumb,8);
                     unlink ($target_file);
+                    $cu1="avt/".$_POST["cmnd"].".jpg";$cu2="avt/".$_POST["cmnd"].".png";
+                    if($_FILES['file']['type'] == "image/jpeg")unlink ($cu2);else unlink ($cu1);
 			}
     }else $thumb='#';
     if (isset($_FILES['ccn']['name']) and $_FILES['ccn']['name'] != NULL) {
@@ -168,7 +175,8 @@ if (file_exists($n3jpg)or file_exists($n3png)){
              $duoi=strtolower(end(explode('.',$_FILES['ccn']['name'])));
             $local1= "cc/ccn/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($ccn,$local1);
-              
+            $cn1="cc/ccn/".$_POST["cmnd"].".jpg";$cn2="cc/ccn/".$_POST["cmnd"].".png";
+                    if($_FILES['ccn']['type'] == "image/jpeg")unlink ($cn2);else unlink ($cn1);  
 			}
     }else $local1='#';
     if (isset($_FILES['n3']['name']) and $_FILES['n3']['name'] != NULL) {
@@ -179,7 +187,8 @@ if (file_exists($n3jpg)or file_exists($n3png)){
              $duoi=strtolower(end(explode('.',$_FILES['n3']['name'])));
             $local2= "cc/n3/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($n3,$local2);
-              
+              $c31="cc/n3/".$_POST["cmnd"].".jpg";$c32="cc/n3/".$_POST["cmnd"].".png";
+                    if($_FILES['n3']['type'] == "image/jpeg")unlink ($c32);else unlink ($c31); 
 			}
     }else $local2='#';
     $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}', project = '{$_COOKIE['project']}' WHERE ID='$idc'");
@@ -215,6 +224,8 @@ echo "
                     imagecopyresampled($colo,$newimage,0,0,0,0,$newwith,$newhight,$width,$height);
                     if($_FILES['file']['type'] == "image/jpeg")imagejpeg($colo,$thumb,100);else imagepng($colo,$thumb,8);
                     unlink ($target_file);
+                     $cu1="avt/".$_POST["cmnd"].".jpg";$cu2="avt/".$_POST["cmnd"].".png";
+                    if($_FILES['file']['type'] == "image/jpeg")unlink ($cu2);else unlink ($cu1);
 			}
     }else $thumb='#';
     if (isset($_FILES['ccn']['name']) and $_FILES['ccn']['name'] != NULL) {
@@ -225,7 +236,8 @@ echo "
              $duoi=strtolower(end(explode('.',$_FILES['ccn']['name'])));
             $local1= "cc/ccn/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($ccn,$local1);
-              
+              $cn1="cc/ccn/".$_POST["cmnd"].".jpg";$cn2="cc/ccn/".$_POST["cmnd"].".png";
+                    if($_FILES['ccn']['type'] == "image/jpeg")unlink ($cn2);else unlink ($cn1); 
 			}
     }else $local1='#';
     if (isset($_FILES['n3']['name']) and $_FILES['n3']['name'] != NULL) {
@@ -236,7 +248,8 @@ echo "
              $duoi=strtolower(end(explode('.',$_FILES['n3']['name'])));
             $local2= "cc/n3/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($n3,$local2);
-              
+             $c31="cc/n3/".$_POST["cmnd"].".jpg";$c32="cc/n3/".$_POST["cmnd"].".png";
+                    if($_FILES['n3']['type'] == "image/jpeg")unlink ($c32);else unlink ($c31);  
 			}
     }else $local2='#';
     $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}', project = '{$_COOKIE['project']}' WHERE ID='$idc'");
@@ -262,3 +275,30 @@ echo "
  
     </table>
 </body>
+<script>;( function ( document, window, index )
+{
+	var inputs = document.querySelectorAll( '.inputfile' );
+	Array.prototype.forEach.call( inputs, function( input )
+	{
+		var label	 = input.nextElementSibling,
+			labelVal = label.innerHTML;
+
+		input.addEventListener( 'change', function( e )
+		{
+			var fileName = '';
+			if( this.files && this.files.length > 1 )
+				fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+			else
+				fileName = e.target.value.split( '\\' ).pop();
+
+			if( fileName )
+				label.querySelector( 'span' ).innerHTML = fileName;
+			else
+				label.innerHTML = labelVal;
+		});
+
+		// Firefox bug fix
+		input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+		input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+	});
+}( document, window, 0 ));</script>
