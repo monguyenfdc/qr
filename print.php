@@ -26,7 +26,7 @@ $query3=mysql_query("SELECT * FROM `sheet1` WHERE `doi`= '$doi' and `project`='{
  $jpg="avt/".$row3['cmnd'].".jpg"; $png="avt/".$row3['cmnd'].".png";
  if (file_exists($jpg)or file_exists($png)){
  if (file_exists($jpg))  $img=$jpg;  
- if (file_exists($png))  $img=$png; }
+ if (file_exists($png))  $img=$png; }else $img="#";
     echo "
 <div class='ritz grid-container' dir='ltr'  id='Content_ID'>
 <table class='waffle' cellspacing='0' cellpadding='0'>

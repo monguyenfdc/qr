@@ -152,19 +152,12 @@ if (file_exists($n3jpg)or file_exists($n3png)){
 			{
 			 $tmp_name = $_FILES['file']['tmp_name'];
              $duoi=strtolower(end(explode('.',$_FILES['file']['name'])));
-            $target_file= "avt/".$_FILES['file']['name'];
+            $target_file= "avt/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($tmp_name,$target_file);
-              list($width,$height) = getimagesize($target_file);
-                 if($_FILES['file']['type'] == "image/jpeg")$newimage = imagecreatefromjpeg($target_file);else $newimage = imagecreatefrompng($target_file);
-	               $newwith=$width*0.25;
-                    $newhight=$height*0.25;	
-                    $thumb=	"avt/".$_POST["cmnd"].".".$duoi;
-                    $colo=imagecreatetruecolor($newwith,$newhight);
-                    imagecopyresampled($colo,$newimage,0,0,0,0,$newwith,$newhight,$width,$height);
-                    if($_FILES['file']['type'] == "image/jpeg")imagejpeg($colo,$thumb,100);else imagepng($colo,$thumb,8);
-                    unlink ($target_file);
-                    $cu1="avt/".$_POST["cmnd"].".jpg";$cu2="avt/".$_POST["cmnd"].".png";
-                    if($_FILES['file']['type'] == "image/jpeg")unlink ($cu2);else unlink ($cu1);
+             $thumb= $target_file;
+                     $cu1="avt/".$_POST["cmnd"].".jpg";$cu2="avt/".$_POST["cmnd"].".png";
+                    if($_FILES['file']['type'] == "image/jpeg")
+                    {if (file_exists($cu2))unlink ($cu2);}else {if (file_exists($cu1))unlink ($cu1);}
 			}
     }else $thumb='#';
     if (isset($_FILES['ccn']['name']) and $_FILES['ccn']['name'] != NULL) {
@@ -176,7 +169,8 @@ if (file_exists($n3jpg)or file_exists($n3png)){
             $local1= "cc/ccn/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($ccn,$local1);
             $cn1="cc/ccn/".$_POST["cmnd"].".jpg";$cn2="cc/ccn/".$_POST["cmnd"].".png";
-                    if($_FILES['ccn']['type'] == "image/jpeg")unlink ($cn2);else unlink ($cn1);  
+                    if($_FILES['ccn']['type'] == "image/jpeg")
+                    {if (file_exists($cn2))unlink ($cn2);}else {if (file_exists($cn1))unlink ($cn1);} 
 			}
     }else $local1='#';
     if (isset($_FILES['n3']['name']) and $_FILES['n3']['name'] != NULL) {
@@ -188,7 +182,8 @@ if (file_exists($n3jpg)or file_exists($n3png)){
             $local2= "cc/n3/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($n3,$local2);
               $c31="cc/n3/".$_POST["cmnd"].".jpg";$c32="cc/n3/".$_POST["cmnd"].".png";
-                    if($_FILES['n3']['type'] == "image/jpeg")unlink ($c32);else unlink ($c31); 
+                    if($_FILES['n3']['type'] == "image/jpeg")
+                    {if (file_exists($c32))unlink ($c32);}else {if (file_exists($c31))unlink ($c31);}
 			}
     }else $local2='#';
     $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}', project = '{$_COOKIE['project']}' WHERE ID='$idc'");
@@ -213,19 +208,12 @@ echo "
 			{
 			 $tmp_name = $_FILES['file']['tmp_name'];
              $duoi=strtolower(end(explode('.',$_FILES['file']['name'])));
-            $target_file= "avt/".$_FILES['file']['name'];
+            $target_file= "avt/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($tmp_name,$target_file);
-              list($width,$height) = getimagesize($target_file);
-                 if($_FILES['file']['type'] == "image/jpeg")$newimage = imagecreatefromjpeg($target_file);else $newimage = imagecreatefrompng($target_file);
-	               $newwith=$width*0.25;
-                    $newhight=$height*0.25;	
-                    $thumb=	"avt/".$_POST["cmnd"].".".$duoi;
-                    $colo=imagecreatetruecolor($newwith,$newhight);
-                    imagecopyresampled($colo,$newimage,0,0,0,0,$newwith,$newhight,$width,$height);
-                    if($_FILES['file']['type'] == "image/jpeg")imagejpeg($colo,$thumb,100);else imagepng($colo,$thumb,8);
-                    unlink ($target_file);
+              $thumb= $target_file;
                      $cu1="avt/".$_POST["cmnd"].".jpg";$cu2="avt/".$_POST["cmnd"].".png";
-                    if($_FILES['file']['type'] == "image/jpeg")unlink ($cu2);else unlink ($cu1);
+                    if($_FILES['file']['type'] == "image/jpeg")
+                    {if (file_exists($cu2))unlink ($cu2);}else {if (file_exists($cu1))unlink ($cu1);}
 			}
     }else $thumb='#';
     if (isset($_FILES['ccn']['name']) and $_FILES['ccn']['name'] != NULL) {
@@ -237,7 +225,7 @@ echo "
             $local1= "cc/ccn/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($ccn,$local1);
               $cn1="cc/ccn/".$_POST["cmnd"].".jpg";$cn2="cc/ccn/".$_POST["cmnd"].".png";
-                    if($_FILES['ccn']['type'] == "image/jpeg")unlink ($cn2);else unlink ($cn1); 
+                    if($_FILES['ccn']['type'] == "image/jpeg"){if (file_exists($cn2))unlink ($cn2);}else {if (file_exists($cn1))unlink ($cn1);} 
 			}
     }else $local1='#';
     if (isset($_FILES['n3']['name']) and $_FILES['n3']['name'] != NULL) {
@@ -249,7 +237,7 @@ echo "
             $local2= "cc/n3/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($n3,$local2);
              $c31="cc/n3/".$_POST["cmnd"].".jpg";$c32="cc/n3/".$_POST["cmnd"].".png";
-                    if($_FILES['n3']['type'] == "image/jpeg")unlink ($c32);else unlink ($c31);  
+                    if($_FILES['n3']['type'] == "image/jpeg"){if (file_exists($c32))unlink ($c32);}else {if (file_exists($c31))unlink ($c31);} 
 			}
     }else $local2='#';
     $sql1=mysql_query("UPDATE sheet1 SET ten='{$_POST["ten"]}', nam='{$_POST["nam"]}', cmnd='{$_POST["cmnd"]}',doi='{$_POST["doi"]}', note= '{$_POST["note"]}', project = '{$_COOKIE['project']}' WHERE ID='$idc'");
@@ -265,7 +253,7 @@ echo "
     <td>Ok</td>
    
     </tr>";
-    echo "<script>setTimeout(function(){open(location, '_self').close();}, 7000); </script>";
+    echo "<script>setTimeout(function(){open(location, '_self').close();}, 3000); </script>";
 }
 }
 }
