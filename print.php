@@ -80,7 +80,7 @@ $query3=mysql_query("SELECT * FROM `sheet1` WHERE `doi`= '$doi' and `project`='{
 <td class='s6' colspan='2'>Ngày cấp:</td>
 <td class='s9' dir='ltr'>$today</td>
 <td class='s10' rowspan='3'><div style='width:107px;height:102px'>
-<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=http://work.fdcc.com.vn:8081/index.php?cmnd={$row3['cmnd']}' height='102px' width='102px'/>
+<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=http://work.fdcc.vn:8081/index.php?cmnd={$row3['cmnd']}' height='102px' width='102px'/>
 </div></td>
 </tr>
 <tr style='height:35px;'>
@@ -106,12 +106,12 @@ $query3=mysql_query("SELECT * FROM `sheet1` WHERE `doi`= '$doi' and `project`='{
 }
 
 if(isset($_GET["idpr"])){ 
-$query3=mysql_query("SELECT * FROM `sheet1` WHERE `ID`= '{$_GET["idpr"]}'");
-$row3 = mysql_fetch_assoc($query3) ;
+$query3=mysql_query("SELECT * FROM `sheet1` WHERE `ID` IN ({$_GET["idpr"]})");
+while($row3 = mysql_fetch_assoc($query3)){ 
  $jpg="avt/".$row3['cmnd'].".jpg"; $png="avt/".$row3['cmnd'].".png";
  if (file_exists($jpg)or file_exists($png)){
  if (file_exists($jpg))  $img=$jpg;  
- if (file_exists($png))  $img=$png; }
+ if (file_exists($png))  $img=$png; }else $img="#";
     echo "
 <div class='ritz grid-container' dir='ltr'  id='Content_ID'>
 <table class='waffle' cellspacing='0' cellpadding='0'>
@@ -165,7 +165,7 @@ $row3 = mysql_fetch_assoc($query3) ;
 <td class='s6' colspan='2'>Ngày cấp:</td>
 <td class='s9' dir='ltr'>$today</td>
 <td class='s10' rowspan='3'><div style='width:107px;height:102px'>
-<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=http://work.fdcc.com.vn:8081/index.php?cmnd={$row3['cmnd']}' height='102px' width='102px'/>
+<img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=http://work.fdcc.vn:8081/index.php?cmnd={$row3['cmnd']}' height='102px' width='102px'/>
 </div></td>
 </tr>
 <tr style='height:35px;'>
@@ -173,7 +173,7 @@ $row3 = mysql_fetch_assoc($query3) ;
 
 <td class='s1'></td>
 <td class='s6' colspan='2'>Năm sinh:</td>
-<td class='s9' dir='ltr'>{$row3['nam']}</td>
+<td class='s9' dir='ltr'>[-----{$row3['nam']}-----]</td>
 </tr>
 <tr style='height:29px;'>
 
@@ -187,7 +187,7 @@ $row3 = mysql_fetch_assoc($query3) ;
 </div>
 <br/>
  ";
- 
+ }
 }
 ?>
 Copyright by FDC<br />

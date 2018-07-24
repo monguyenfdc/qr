@@ -204,23 +204,18 @@ if(isset($_POST["addcn"])){
         </tr>";
  } else{//Ko trùng thì thêm vào csdl
  //thêm ảnh
-    if (isset($_FILES['file']['name']) and $_FILES['file']['name'] != NULL) {
+     if (isset($_FILES['file']['name']) and $_FILES['file']['name'] != NULL) {
         if($_FILES['file']['type'] == "image/jpeg"
 			|| $_FILES['file']['type'] == "image/png")
 			{
 			 $tmp_name = $_FILES['file']['tmp_name'];
              $duoi=strtolower(end(explode('.',$_FILES['file']['name'])));
-            $target_file= "avt/".$_FILES['file']['name'];
+            $target_file= "avt/".$_POST["cmnd"].".".$duoi;
              move_uploaded_file($tmp_name,$target_file);
-              list($width,$height) = getimagesize($target_file);
-                 if($_FILES['file']['type'] == "image/jpeg")$newimage = imagecreatefromjpeg($target_file);else $newimage = imagecreatefrompng($target_file);
-	               $newwith=$width*0.25;
-                    $newhight=$height*0.25;	
-                    $thumb=	"avt/".$_POST["cmnd"].".".$duoi;
-                    $colo=imagecreatetruecolor($newwith,$newhight);
-                    imagecopyresampled($colo,$newimage,0,0,0,0,$newwith,$newhight,$width,$height);
-                    if($_FILES['file']['type'] == "image/jpeg")imagejpeg($colo,$thumb,100);else imagepng($colo,$thumb,8);
-                    unlink ($target_file);
+              $thumb= $target_file;
+                     $cu1="avt/".$_POST["cmnd"].".jpg";$cu2="avt/".$_POST["cmnd"].".png";
+                    if($_FILES['file']['type'] == "image/jpeg")
+                    {if (file_exists($cu2))unlink ($cu2);}else {if (file_exists($cu1))unlink ($cu1);}
 			}
     }else $thumb='#';
     //thêm vào csdl

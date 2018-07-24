@@ -41,7 +41,10 @@ if(isset($_REQUEST["admin"])){
     <span class="input-group-addon">Mã số quét</span>
     <span class='form-control'><?php echo $row['keycheck'] ?></span>
     </div>
-  
+    <div class='input-group'>
+    <span class="input-group-addon"><img src='https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=http://work.fdcc.com.vn:8081/index.php?msqr=<?php echo $row['keycheck'] ?>' height='102px' width='102px'/></span>
+    <span class='form-control'>Mã Set-up máy quét: Quét mã này thay cho điền mật khẩu trên điện thoại</span>
+    </div>
  <center>
  
 <button class="btn btn-warning" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

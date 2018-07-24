@@ -1,14 +1,43 @@
 <?php
 include ('config.php');
 include ('conten.php');
+if (isset($_POST['date'])){ $today=$_POST['ndt'];}
 ?>
 <script type="text/javascript" src="js/Chart.js"></script>
-
+<script>
+function mydate()
+{
+  //alert("");
+document.getElementById("dt").hidden=false;
+document.getElementById("ndt").hidden=true;
+document.getElementById("da").hidden=true;
+document.getElementById("up").hidden=false;
+document.getElementById("ti").hidden=true;
+}
+function mydate1()
+{
+ d=new Date(document.getElementById("dt").value);
+dt=d.getDate();
+mn=d.getMonth();
+mn++;
+yy=d.getFullYear();
+document.getElementById("ndt").value=(dt < 10 ? "0" : "")+dt+"-"+(mn < 10 ? "0" : "")+mn+"-"+yy
+document.getElementById("ndt").hidden=false;
+document.getElementById("dt").hidden=true;
+}
+</script>
   <div class="row"> 
  
      <div class="col-sm-4" >
-  <div class='input-group'><span class='form-control'>TỔNG QS NGÀY: <?php echo $today; ?></span>
-  <span class="input-group-addon"><button id="exportButton">Xuất Excel</button></span></div> 
+   <form action="" method="post">
+  <div class='input-group'>
+  <span class='form-control'><a id="ti">QUÂN SỐ NGÀY:</a> </span>
+  <span class="input-group-addon"><input type="date"  id="dt" onchange="mydate1();" style="height: 20px;" hidden/>
+<input type="text" id="ndt" name="ndt"  onclick="mydate();" hidden />
+<input type="button" id="da" Value="<?php echo $today; ?>" onclick="mydate();" />
+<input type="submit" id="up" value="view" name="date" hidden/>
+</span>
+  <span class="input-group-addon"><button id="exportButton">Xuất Excel</button></span></div> </form>
   <div style="width: 100%; height: 516px; overflow:auto; border: 2px solid #c5cdd8;">
     <table class="table table-striped"  id="exportTable">
     <thead>

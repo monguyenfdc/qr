@@ -28,7 +28,7 @@ FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
     <span  class="input-group-addon">In theo mã số công nhân</span>  
         <form action="" method="POST">
         <div class="input-group">
-             <input class="form-control" type="text" name="ms" placeholder="Nhập mã số" />
+             <input class="form-control" type="text" name="ms" placeholder="Nhập mã số: 1,2,3..." />
             <div class="input-group-addon">
             <input type="submit" value="print" name="in2"  />
             </div>
@@ -51,9 +51,10 @@ FROM sheet1 WHERE project ='{$_COOKIE['project']}'");
  </thead>
 <?php 
 if(isset($_POST["in2"])){
-$sql1= mysql_query("SELECT * FROM sheet1 where ID='{$_POST["ms"]}'");
-if(mysql_num_rows($sql1)>0){
-    $row1 = mysql_fetch_assoc($sql1);
+$sql1= mysql_query("SELECT * FROM `sheet1` WHERE `ID` IN ({$_POST["ms"]})");
+
+    if(mysql_num_rows($sql1)>0){
+    while($row1 = mysql_fetch_assoc($sql1)){ 
         echo "
         
         <tr>
@@ -64,14 +65,13 @@ if(mysql_num_rows($sql1)>0){
         <td>{$row1['doi']}</td>
         <td>{$row1['note']}</td>
         <td>{$row1['project']}
-        <script>function open_a_win{$row1['ID']}() { window.open('print.php?idpr={$row1['ID']}','Print','width=960,height=300'); return false; }</script> 
+        <script>function open_a_win{$row1['ID']}() { window.open('print.php?idpr={$_POST["ms"]}','Print','width=960,height=300'); return false; }</script> 
         <a onclick='return open_a_win{$row1['ID']}();'><span title='Print' class='glyphicon glyphicon-print' aria-hidden='true'></span></a>
         </td>
         </td>
-        </tr>";
+        </tr>";}
 } else echo "<script language='javascript'>alert('Không tìm thấy thông tin !')</script>";  
 }
-
 ?>
 </table>
 </div>

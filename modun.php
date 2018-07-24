@@ -101,8 +101,9 @@ if(isset($_POST['ccn'])){
 foreach($files as $cm=>$value){
     $duoi='.'.strtolower(end(explode('.',$value)));
     $cmnd=  basename($value,$duoi);
-    $query3=mysql_query("SELECT * FROM sheet1 WHERE cmnd=$cmnd");
+    $query3=mysql_query("SELECT * FROM sheet1 WHERE cmnd='$cmnd'and project='{$_COOKIE['project']}'");
     $row3 = mysql_fetch_assoc($query3);
+    if(mysql_num_rows($query3)>0)
     echo "<td><a href='$value' target='_blank'><span class='glyphicon glyphicon-list-alt' aria-hidden='true'></span></a></td>
     <td>{$row3['ID']}</td>
     <td>{$row3['ten']}</td>
@@ -146,8 +147,9 @@ if(isset($_POST['n3'])){
 foreach($files as $cm=>$value){
     $duoi='.'.strtolower(end(explode('.',$value)));
     $cmnd=  basename($value,$duoi);
-    $query3=mysql_query("SELECT * FROM sheet1 WHERE cmnd=$cmnd");
+    $query3=mysql_query("SELECT * FROM sheet1 WHERE cmnd='$cmnd'and project='{$_COOKIE['project']}'");
     $row3 = mysql_fetch_assoc($query3);
+    if(mysql_num_rows($query3)>0)
     echo "<td><a href='$value' target='_blank'><span class='glyphicon glyphicon-tag' aria-hidden='true'></span></a></td>
     <td>{$row3['ID']}</td>
     <td>{$row3['ten']}</td>

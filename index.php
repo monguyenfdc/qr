@@ -48,7 +48,7 @@ if (isset($_COOKIE['keycheck'])){
     if ($row2>0) {echo "
     <h4><b style='color: red;'>Đã kiểm </b> </h4>
     <b> $project</b> - <b>Đội: $doi</b>
-    <h4 > $ten - $nam </h4>
+    <h4 > $ten - $nam </h4> CMND: $cmnd
      <b style='color: red;'>$note</b><br/>"; 
  $jpg="avt/".$cmnd.".jpg"; $png="avt/".$cmnd.".png";
 $ccnjpg="cc/ccn/".$cmnd.".jpg"; $ccnpng="cc/ccn/".$cmnd.".png";
@@ -75,7 +75,7 @@ if (file_exists($n3jpg)or file_exists($n3png)){
       if($sql) {
         echo "
         <b> $project</b> - <b>Đội: $doi</b>
-    <h3 > $ten - $nam </h3>
+    <h3 > $ten - $nam </h3> CMND: $cmnd
      <b style='color: red;'>$note</b><br/>"; 
  $jpg="avt/".$cmnd.".jpg"; $png="avt/".$cmnd.".png";
 $ccnjpg="cc/ccn/".$cmnd.".jpg"; $ccnpng="cc/ccn/".$cmnd.".png";
@@ -122,10 +122,22 @@ Password:
             }else echo "<script language='javascript'>alert('Tên hoặc mật khẩu không đúng !')</script>";
         }
    }
-   
+ if(isset($_GET['msqr'])){
+    $sql1=mysql_query('SELECT * FROM user where keycheck="'.$_GET['msqr'].'"');
+            if(mysql_num_rows($sql1)>0){
+                $row1 = mysql_fetch_assoc($sql1);
+                setcookie("keycheck", $_GET['msqr'], time() + 60*60*24*100);
+                setcookie("keypj", $row1['project'], time() + 60*60*24*100);
+                echo "<script language='javascript'>alert('Cài đặt thành công !')</script>";   
+                
+                  
+              
+                             
+            }else echo "<script language='javascript'>alert('Cài đặt thất bại !')</script>";
+ }   
 ?>   
 <hr/>
-NO PROBLEM - ONLY SOLUTION
+<i>Chú ý: Công nhân đã có đầy đủ HĐLĐ <br /> Có giấy khám sức khỏe + CMND</i>
 <hr/>
 </center>
 </div>
