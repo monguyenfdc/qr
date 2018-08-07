@@ -1,5 +1,7 @@
 <?php 
 if (empty($_COOKIE['project'])) header("location:login.php");
+if (isset($_COOKIE['vip'])and $_COOKIE['vip']==2)header("location:super.php");
+if (isset($_COOKIE['vip'])and $_COOKIE['vip']==3)header("location:super2.php");
 if (isset($_GET['out'])) {setcookie("project", "", time() - 60*60*24*100);header("location:login.php");}
 ?>
 <!DOCTYPE html>
