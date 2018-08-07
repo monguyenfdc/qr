@@ -181,7 +181,7 @@ echo mysql_num_rows($query4);
 </div>
 <div class="col-md-8">
 <span  class="input-group-addon">Biến động quân số</span> 
-<canvas id="chartjs-0" class="chartjs" width="100%" height="27px" style="display: block; width: 100%; height: 100px; border: 2px solid #c5cdd8;"></canvas>
+<canvas id="chartjs-0" class="chartjs" width="100%" height="40px" style="display: block; width: 100%; height: 100px; border: 2px solid #c5cdd8;"></canvas>
 </div></div>
 <div class="row"> 
      <div class="col-sm-6" >
